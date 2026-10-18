@@ -4,7 +4,7 @@
 
 ## Windows EXE
 
-`Windows/DNDROLL-Windows-x64.exe` 为便携版；`Windows/DNDROLL-Windows-x64-setup.exe` 为安装版。需要 WebView2；安装版在缺失时联网补装。已编译，Windows 实机验收待完成。详情见 `DESKTOP.md`。
+`Windows/DNDROLL-Windows-x64.exe` 为便携版；`Windows/DNDROLL-Windows-x64-setup.exe` 为安装版。需要 WebView2；安装版在缺失时联网补装。已编译。详情见 `DESKTOP.md`。
 
 ## 直接使用
 
