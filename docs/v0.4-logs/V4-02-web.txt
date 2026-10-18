@@ -1,0 +1,44 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> dndroll-project@0.3.0 test:web
+> npm run test --workspace apps/web
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @dndroll/web@0.3.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /workspace/scratch/a332a702c2b0/work/dndroll/apps/web
+
+ ✓ src/test/history-cache.test.tsx (2 tests) 605ms
+   ✓ V3-04: browsing and language rerenders reuse each history Session 569ms
+ ✓ src/test/display.test.tsx (4 tests) 726ms
+   ✓ 浅深色一键切换并记住偏好，不更改骰值、会话或历史；快速按钮位于工作面板附近 713ms
+ ✓ src/test/ability-name.test.tsx (4 tests) 805ms
+   ✓ V3-07: adnd2e scores, history, completed result and copied TXT keep the right scope 344ms
+   ✓ V3-07: adnd1e scores, history, completed result and copied TXT keep the right scope 348ms
+ ✓ src/test/maintenance.test.tsx (4 tests) 980ms
+   ✓ V3-01: real sibling buttons support Tab, Enter and Space without changing Core events 379ms
+   ✓ V3-03: language updates html.lang and dice labels without changing the session 343ms
+ ✓ src/test/quick-roll.test.tsx (29 tests) 1276ms
+   ✓ 界面：连续生成无确认；恢复分配与锁定状态；切语言不重掷且重置面板临时选择 1078ms
+ ✓ src/test/theme.test.mjs (3 tests) 5ms
+ ✓ src/test/flows.test.tsx (18 tests) 4209ms
+   ✓ 普通分配流程（5E 2024 随机生成） > 掷骰 → 点选分配 → 完成锁定 854ms
+   ✓ AD&D 2E 方法 II：每项二选一，允许选较低结果 > 为每项选择低值并完成 314ms
+   ✓ AD&D 1E 方法 IV：十二套整套选择 > 选择一整套后完成 479ms
+   ✓ AD&D 2E 方法 VI：八点基础加七颗骰 > 逐颗分配，超过 18 被拒绝且不破坏状态 539ms
+   ✓ 三种购点成本表 > PF1 购点：负成本降值、超支禁止完成 307ms
+   ✓ 维护回归：存档保护与浏览 > 浏览版本与方法不改存档；取消替换保留进度，确认才建立新会话 421ms
+ ✓ src/test/expansion.test.tsx (5 tests) 6779ms
+   ✓ VII 点满 75 后手动投 d100，历史/切语言不重投，结果显示 18/00 2459ms
+   ✓ VIII 每项最多 6 骰；确认后掷骰，STR 18 自动附加 d100，并可快速生成下一组 333ms
+   ✓ IX 先投预算，再按对应上限购点；再掷一组独立生成预算，历史保留旧预算 1043ms
+   ✓ X 传奇力量购买计入同一预算，不提供百分骰按钮，超预算不能锁定 2670ms
+
+ Test Files  8 passed (8)
+      Tests  69 passed (69)
+   Start at  05:08:49
+   Duration  7.89s (transform 595ms, setup 982ms, collect 1.70s, tests 15.39s, environment 3.17s, prepare 604ms)
+

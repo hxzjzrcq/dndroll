@@ -1,0 +1,35 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> dndroll-project@0.2.0 test:web
+> npm run test --workspace apps/web
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @dndroll/web@0.2.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /workspace/scratch/a332a702c2b0/work/dndroll/apps/web
+
+ ✓ src/test/display.test.tsx (4 tests) 409ms
+   ✓ 浅深色一键切换并记住偏好，不更改骰值、会话或历史；快速按钮位于工作面板附近 398ms
+ ✓ src/test/quick-roll.test.tsx (28 tests) 881ms
+   ✓ 界面：连续生成无确认；恢复分配与锁定状态；切语言不重掷且重置面板临时选择 753ms
+ ✓ src/test/flows.test.tsx (18 tests) 3928ms
+   ✓ 普通分配流程（5E 2024 随机生成） > 掷骰 → 点选分配 → 完成锁定 644ms
+   ✓ AD&D 1E 方法 IV：十二套整套选择 > 选择一整套后完成 416ms
+   ✓ AD&D 2E 方法 VI：八点基础加七颗骰 > 逐颗分配，超过 18 被拒绝且不破坏状态 684ms
+   ✓ PF1 骰池 28：先分骰再掷 > 配满 28 颗后才能掷骰并完成 327ms
+   ✓ 三种购点成本表 > PF1 购点：负成本降值、超支禁止完成 311ms
+   ✓ 维护回归：存档保护与浏览 > 浏览版本与方法不改存档；取消替换保留进度，确认才建立新会话 424ms
+ ✓ src/test/expansion.test.tsx (5 tests) 6269ms
+   ✓ VII 点满 75 后手动投 d100，历史/切语言不重投，结果显示 18/00 2177ms
+   ✓ VIII 每项最多 6 骰；确认后掷骰，STR 18 自动附加 d100，并可快速生成下一组 306ms
+   ✓ IX 先投预算，再按对应上限购点；再掷一组独立生成预算，历史保留旧预算 938ms
+   ✓ X 传奇力量购买计入同一预算，不提供百分骰按钮，超预算不能锁定 2614ms
+
+ Test Files  4 passed (4)
+      Tests  55 passed (55)
+   Start at  04:53:10
+   Duration  7.08s (transform 255ms, setup 356ms, collect 789ms, tests 11.49s, environment 1.24s, prepare 241ms)
+

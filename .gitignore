@@ -1,0 +1,6 @@
+node_modules/
+apps/web/dist/
+!apps/web/dist-offline/
+*.log
+apps/web/src-tauri/target/
+apps/web/src-tauri/gen/

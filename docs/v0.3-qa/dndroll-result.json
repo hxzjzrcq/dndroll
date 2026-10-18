@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": "0.2.0-2026-10-17",
+  "versionId": "adnd2e",
+  "methodId": "adnd2e.phb-I",
+  "options": {},
+  "baseScores": {
+    "STR": 12,
+    "DEX": 12,
+    "CON": 12,
+    "INT": 12,
+    "WIS": 12,
+    "CHA": 12
+  },
+  "adjustedScores": {
+    "STR": 12,
+    "DEX": 12,
+    "CON": 12,
+    "INT": 12,
+    "WIS": 12,
+    "CHA": 12
+  },
+  "exceptionalStrength": null,
+  "selectedClass": null,
+  "source": {
+    "title": "AD&D 2E Player’s Handbook",
+    "location": "Chapter 1: Rolling Ability Scores",
+    "url": "https://adnd2e.fandom.com/wiki/Rolling_Ability_Scores_(PHB)",
+    "evidence": "transcription"
+  },
+  "scope": "ability-generation-only",
+  "notices": [
+    {
+      "zh": "这是属性生成结果，不是完整人物卡。",
+      "en": "This is ability generation, not a complete character sheet."
+    },
+    {
+      "zh": "传奇力量按本工具约定，不检查职业、种族或性别资格与上限；请自行按团规处理。其他职业、种族条件及调整尚未应用。",
+      "en": "Exceptional Strength ignores class, race and sex eligibility and caps by this tool’s convention; apply your table’s rules yourself. Other class/race checks and adjustments are not applied."
+    }
+  ],
+  "attempts": [
+    {
+      "number": 1,
+      "exceptionalStrength": null,
+      "pointGeneration": null,
+      "candidates": [
+        {
+          "id": "a1.r1",
+          "dice": [
+            {
+              "id": "a1.r1.d1",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r1.d2",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r1.d3",
+              "value": 4,
+              "kept": true
+            }
+          ],
+          "total": 12,
+          "ability": "STR",
+          "setId": null,
+          "eligible": true
+        },
+        {
+          "id": "a1.r2",
+          "dice": [
+            {
+              "id": "a1.r2.d1",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r2.d2",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r2.d3",
+              "value": 4,
+              "kept": true
+            }
+          ],
+          "total": 12,
+          "ability": "DEX",
+          "setId": null,
+          "eligible": true
+        },
+        {
+          "id": "a1.r3",
+          "dice": [
+            {
+              "id": "a1.r3.d1",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r3.d2",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r3.d3",
+              "value": 4,
+              "kept": true
+            }
+          ],
+          "total": 12,
+          "ability": "CON",
+          "setId": null,
+          "eligible": true
+        },
+        {
+          "id": "a1.r4",
+          "dice": [
+            {
+              "id": "a1.r4.d1",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r4.d2",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r4.d3",
+              "value": 4,
+              "kept": true
+            }
+          ],
+          "total": 12,
+          "ability": "INT",
+          "setId": null,
+          "eligible": true
+        },
+        {
+          "id": "a1.r5",
+          "dice": [
+            {
+              "id": "a1.r5.d1",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r5.d2",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r5.d3",
+              "value": 4,
+              "kept": true
+            }
+          ],
+          "total": 12,
+          "ability": "WIS",
+          "setId": null,
+          "eligible": true
+        },
+        {
+          "id": "a1.r6",
+          "dice": [
+            {
+              "id": "a1.r6.d1",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r6.d2",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r6.d3",
+              "value": 4,
+              "kept": true
+            }
+          ],
+          "total": 12,
+          "ability": "CHA",
+          "setId": null,
+          "eligible": true
+        }
+      ],
+      "looseDice": [],
+      "assignments": {
+        "STR": "a1.r1",
+        "DEX": "a1.r2",
+        "CON": "a1.r3",
+        "INT": "a1.r4",
+        "WIS": "a1.r5",
+        "CHA": "a1.r6"
+      },
+      "selectedSet": null,
+      "allocations": {},
+      "baseScores": {
+        "STR": 12,
+        "DEX": 12,
+        "CON": 12,
+        "INT": 12,
+        "WIS": 12,
+        "CHA": 12
+      },
+      "scores": {
+        "STR": 12,
+        "DEX": 12,
+        "CON": 12,
+        "INT": 12,
+        "WIS": 12,
+        "CHA": 12
+      },
+      "selectedClass": null,
+      "trades": [],
+      "poolCounts": {
+        "STR": 3,
+        "DEX": 3,
+        "CON": 3,
+        "INT": 3,
+        "WIS": 3,
+        "CHA": 3
+      },
+      "generated": true
+    }
+  ],
+  "session": {
+    "schemaVersion": 1,
+    "rulesVersion": "0.2.0-2026-10-17",
+    "request": {
+      "versionId": "adnd2e",
+      "methodId": "adnd2e.phb-I",
+      "options": {}
+    },
+    "events": [
+      {
+        "action": {
+          "type": "roll"
+        },
+        "dice": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "action": {
+          "type": "finalize"
+        },
+        "dice": []
+      }
+    ]
+  }
+}

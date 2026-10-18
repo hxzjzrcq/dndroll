@@ -1,0 +1,1 @@
+{"schemaVersion":1,"rulesVersion":"0.4.0-2026-10-18","request":{"versionId":"dcc","methodId":"dcc.3d6-in-order","options":{}},"events":[{"action":{"type":"roll"},"dice":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},{"action":{"type":"finalize"},"dice":[]}]}

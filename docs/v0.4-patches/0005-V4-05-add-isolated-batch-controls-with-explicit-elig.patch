@@ -1,0 +1,192 @@
+From 930c65eb1d771bc7ffb2ddff045edc8387efa9ae Mon Sep 17 00:00:00 2001
+From: DNDROLL Maintenance <maintenance@dndroll.local>
+Date: Sun, 18 Oct 2026 05:12:00 +0300
+Subject: [PATCH 5/6] V4-05: add isolated batch controls with explicit
+ eligibility and four-count default
+
+---
+ apps/web/src/App.tsx                   | 18 ++++++++---
+ apps/web/src/components/BatchPanel.tsx | 37 +++++++++++++++++++++++
+ apps/web/src/i18n.ts                   |  7 +++++
+ apps/web/src/styles.css                |  3 ++
+ apps/web/src/test/batch.test.tsx       | 41 ++++++++++++++++++++++++++
+ 5 files changed, 102 insertions(+), 4 deletions(-)
+ create mode 100644 apps/web/src/components/BatchPanel.tsx
+ create mode 100644 apps/web/src/test/batch.test.tsx
+
+diff --git a/apps/web/src/App.tsx b/apps/web/src/App.tsx
+index a7bc5e3..c1e04d0 100644
+--- a/apps/web/src/App.tsx
++++ b/apps/web/src/App.tsx
+@@ -7,12 +7,14 @@ import {
+   formatAbilityScore,
+   listMethods,
+   listVersions,
++  type CreateRequest,
+   type Locale,
+   type Method,
+   type Rng,
+   type SessionOptions,
+   type VersionId,
+ } from '@dndroll/core';
++import { BatchPanel } from './components/BatchPanel';
+ import { ExceptionalPanel } from './components/ExceptionalPanel';
+ import { getHistoryView } from './historyView';
+ import { HistoryPreview } from './components/HistoryPreview';
+@@ -86,15 +88,21 @@ export default function App({ rng }: { rng?: Rng }) {
+     setSel({ versionId, methodId });
+   };
+ 
+-  const startSession = () => {
+-    if (!selectedMethod || selectedMethod.status !== 'ready') return;
++  const selectedRequest = useMemo<CreateRequest | null>(() => {
++    if (!selectedMethod || selectedMethod.status !== 'ready') return null;
+     const options: SessionOptions = {};
+     if (selectedMethod.mode === 'buy' && opts.budget !== undefined) options.budget = opts.budget;
+     if (selectedMethod.canChooseOrder) options.inOrder = opts.inOrder ?? false;
+     if (selectedMethod.mode === 'pool' && opts.poolTotal !== undefined) options.poolTotal = opts.poolTotal;
++    return {versionId: selectedMethod.versionId, methodId: selectedMethod.id, options};
++  }, [selectedMethod, opts]);
++
++  const startSession = () => {
++    if (!selectedRequest) return;
++    const options = selectedRequest.options ?? {};
+     guarded(() => {
+-      if (ctl.start({ versionId: selectedMethod.versionId, methodId: selectedMethod.id, options })) {
+-        if (selectedMethod.id === 'pf1.purchase' && options.budget !== undefined) {
++      if (ctl.start(selectedRequest)) {
++        if (selectedRequest.methodId === 'pf1.purchase' && options.budget !== undefined) {
+           const next = { ...prefs, pf1Budget: options.budget };
+           setPrefs(next);
+           savePrefs(next);
+@@ -302,6 +310,8 @@ export default function App({ rng }: { rng?: Rng }) {
+             </section>
+           )}
+ 
++          <BatchPanel request={selectedRequest} locale={locale} rng={rng} />
++
+           {session && view && (
+             <Fragment key={ctl.workspaceKey}>
+               <div className="workspace-head">
+diff --git a/apps/web/src/components/BatchPanel.tsx b/apps/web/src/components/BatchPanel.tsx
+new file mode 100644
+index 0000000..0d81606
+--- /dev/null
++++ b/apps/web/src/components/BatchPanel.tsx
+@@ -0,0 +1,37 @@
++import { useState } from 'react';
++import { BATCH_COUNTS, generateBatch, getMethod, isBatchMethod, RuleError, type BatchEntry, type CreateRequest, type Locale, type Rng, type Text } from '@dndroll/core';
++import { t } from '../i18n';
++
++/** Batch results live only here, independently of the single-session controller. */
++export function BatchPanel({ request, locale, rng }: { request: CreateRequest | null; locale: Locale; rng?: Rng }) {
++  const [count, setCount] = useState(4);
++  const [entries, setEntries] = useState<BatchEntry[]>([]);
++  const [error, setError] = useState<Text | null>(null);
++  const eligible = request && isBatchMethod(getMethod(request.methodId), request.options);
++  const generate = () => {
++    if (!request || !eligible) return;
++    try {
++      const next = generateBatch(request, count, rng);
++      setEntries(next); setError(null);
++    } catch (e) {
++      setError(e instanceof RuleError ? e.messages : {zh:`批量生成失败：${String(e)}`,en:`Batch generation failed: ${String(e)}`});
++    }
++  };
++  if (!eligible && !entries.length && !error) return null;
++  return <section className="panel batch-panel" aria-label={t('batchTitle', locale)}>
++    <h2>{t('batchTitle', locale)}</h2>
++    <p className="panel-hint">{t('batchLifetime', locale)}</p>
++    {eligible && request && <>
++      <p className="batch-method">{getMethod(request.methodId).name[locale]}</p>
++      <div className="batch-controls">
++        <label>{t('batchCount', locale)} <select aria-label={t('batchCount', locale)} value={count} onChange={e=>setCount(Number(e.target.value))}>
++          {BATCH_COUNTS.map(n=><option key={n} value={n}>{n}</option>)}
++        </select></label>
++        <button type="button" className="btn btn-primary" onClick={generate}>{t('batchGenerate', locale)}</button>
++      </div>
++      <p className="panel-hint">{t('batchPresetHint', locale)}</p>
++    </>}
++    {error && <p className="issue issue-error" role="alert">{error[locale]}{entries.length>0?` ${t('batchPrevious', locale)}`:''}</p>}
++    {entries.length>0 && <p role="status">{t('batchReady', locale, {n:entries.length})}</p>}
++  </section>;
++}
+diff --git a/apps/web/src/i18n.ts b/apps/web/src/i18n.ts
+index 3ba5b5d..2dc2948 100644
+--- a/apps/web/src/i18n.ts
++++ b/apps/web/src/i18n.ts
+@@ -3,6 +3,13 @@ import type { Ability, Locale, Text, VersionId } from '@dndroll/core';
+ 
+ /** UI 界面文案。规则说明文字一律来自 @dndroll/core，本文件只包含界面框架文本。 */
+ const dict = {
++  batchTitle: { zh: '批量属性生成', en: 'Batch ability generation' },
++  batchCount: { zh: '批量数量', en: 'Batch count' },
++  batchGenerate: { zh: '生成批量', en: 'Generate batch' },
++  batchLifetime: { zh: '本批量仅保存在当前页面内存中，刷新或关闭后清空。查看和导出不覆盖当前自动存档；只有明确“设为当前会话”才会替换。', en: 'This batch lives in page memory and clears on reload or close. Viewing and exporting leave the current autosave unchanged; only “Use as current session” replaces it.' },
++  batchPresetHint: { zh: '1 / 2 / 4 / 8 是工具预设，不是规则人数限制。再次生成会替换本批量结果；单人会话与最近十组保持独立。', en: '1 / 2 / 4 / 8 are tool presets, not a rules restriction. Generating again replaces this batch; the single session and recent groups remain separate.' },
++  batchPrevious: { zh: '仍保留并显示上一次成功的批量。', en: 'The previous successful batch is still shown.' },
++  batchReady: { zh: '本批量：{n} 组', en: 'This batch: {n} groups' },
+   modifier: { zh: '调整值', en: 'Modifier' },
+   close: { zh: '关闭', en: 'Close' },
+   appTitle: { zh: 'DNDROLL 属性生成器', en: 'DNDROLL Ability Generator' },
+diff --git a/apps/web/src/styles.css b/apps/web/src/styles.css
+index 88aff34..394ebab 100644
+--- a/apps/web/src/styles.css
++++ b/apps/web/src/styles.css
+@@ -1511,3 +1511,6 @@ textarea {
+ .allocate-cell { cursor: default; }
+ 
+ .ability-modifier { color: var(--ink-dim); font-size: 14px; }
++
++.batch-controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
++.batch-controls select { min-height: 44px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font: inherit; }
+diff --git a/apps/web/src/test/batch.test.tsx b/apps/web/src/test/batch.test.tsx
+new file mode 100644
+index 0000000..20cb688
+--- /dev/null
++++ b/apps/web/src/test/batch.test.tsx
+@@ -0,0 +1,41 @@
++import { StrictMode } from 'react';
++import { fireEvent, render, screen, within } from '@testing-library/react';
++import { applyAction, createSession, sequenceRng, serializeSession } from '@dndroll/core';
++import App from '../App';
++function chooseDcc() {
++ fireEvent.click(screen.getByRole('button',{name:'Dungeon Crawl Classics（DCC）'}));
++ fireEvent.click(screen.getByRole('button',{name:/^3d6 顺序生成/}));
++}
++it('V4-05 batch defaults to four; independent from autosave/history under StrictMode and language changes',()=>{
++ let saved=applyAction(createSession({versionId:'adnd2e',methodId:'adnd2e.phb-I'}),{type:'roll'},sequenceRng(Array(18).fill(4)));
++ localStorage.setItem('dndroll.session.v1',serializeSession(saved));
++ render(<StrictMode><App rng={sequenceRng(Array(72).fill(4))}/></StrictMode>);
++ const history=screen.getByRole('region',{name:'最近生成'}).textContent;
++ chooseDcc();
++ expect((screen.getByLabelText('批量数量') as HTMLSelectElement).value).toBe('4');
++ expect(within(screen.getByLabelText('批量数量')).getAllByRole('option').map(o=>o.textContent)).toEqual(['1','2','4','8']);
++ fireEvent.click(screen.getByRole('button',{name:'生成批量'}));
++ expect(screen.getByText('本批量：4 组')).toBeTruthy();
++ expect(localStorage.getItem('dndroll.session.v1')).toBe(serializeSession(saved));
++ expect(screen.getByRole('region',{name:'最近生成'}).textContent).toBe(history);
++ fireEvent.click(screen.getByRole('button',{name:'English'}));
++ expect(screen.getByText('This batch: 4 groups')).toBeTruthy();
++ expect(localStorage.getItem('dndroll.session.v1')).toBe(serializeSession(saved));
++ fireEvent.click(screen.getByRole('button',{name:'Generate batch'})); // Stream exhausted: no fake new success.
++ expect(screen.getByRole('alert').textContent).toContain('Group 1 failed');
++ expect(screen.getByRole('alert').textContent).toContain('previous successful batch');
++ expect(screen.getByText('This batch: 4 groups')).toBeTruthy();
++});
++it('V4-05 pending decisions hide batch controls; PF1 classic requires explicit in-order option',()=>{
++ render(<App/>);
++ fireEvent.click(screen.getByRole('button',{name:'D&D 5E（2024）'}));
++ fireEvent.click(screen.getByRole('button',{name:/随机生成/}));
++ expect(screen.queryByRole('button',{name:'生成批量'})).toBeNull();
++ fireEvent.click(screen.getByRole('button',{name:'Pathfinder 第一版'}));
++ fireEvent.click(screen.getByRole('button',{name:/^经典/}));
++ expect(screen.queryByRole('button',{name:'生成批量'})).toBeNull();
++ fireEvent.click(screen.getByRole('switch'));
++ expect(screen.getByRole('button',{name:'生成批量'})).toBeTruthy();
++ fireEvent.click(screen.getByRole('switch'));
++ expect(screen.queryByRole('button',{name:'生成批量'})).toBeNull();
++});
+-- 
+2.51.1
+

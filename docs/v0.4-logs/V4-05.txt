@@ -1,0 +1,16 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @dndroll/web@0.3.0 test
+> vitest run src/test/batch.test.tsx src/test/dcc.test.tsx
+
+
+ RUN  v2.1.9 /workspace/scratch/a332a702c2b0/work/dndroll/apps/web
+
+ ✓ src/test/batch.test.tsx (2 tests) 408ms
+ ✓ src/test/dcc.test.tsx (2 tests) 412ms
+
+ Test Files  2 passed (2)
+      Tests  4 passed (4)
+   Start at  05:11:44
+   Duration  1.22s (transform 189ms, setup 165ms, collect 397ms, tests 819ms, environment 587ms, prepare 106ms)
+

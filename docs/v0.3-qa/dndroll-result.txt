@@ -1,0 +1,18 @@
+AD&D 第二版 · 方法 I：三骰依序
+按 STR、DEX、CON、INT、WIS、CHA 各掷 3d6。
+STR 12 / DEX 12 / CON 12 / INT 12 / WIS 12 / CHA 12
+基础值: STR 12 / DEX 12 / CON 12 / INT 12 / WIS 12 / CHA 12
+方法选项: {}
+生成次数 1
+a1.r1 STR: 4+4+4 = 12
+a1.r2 DEX: 4+4+4 = 12
+a1.r3 CON: 4+4+4 = 12
+a1.r4 INT: 4+4+4 = 12
+a1.r5 WIS: 4+4+4 = 12
+a1.r6 CHA: 4+4+4 = 12
+结果分配: {"STR":"a1.r1","DEX":"a1.r2","CON":"a1.r3","INT":"a1.r4","WIS":"a1.r5","CHA":"a1.r6"}
+AD&D 2E Player’s Handbook, Chapter 1: Rolling Ability Scores
+https://adnd2e.fandom.com/wiki/Rolling_Ability_Scores_(PHB)
+这是属性生成结果，不是完整人物卡。
+传奇力量按本工具约定，不检查职业、种族或性别资格与上限；请自行按团规处理。其他职业、种族条件及调整尚未应用。
+Rules 0.2.0-2026-10-17

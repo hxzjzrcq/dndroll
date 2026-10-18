@@ -1,0 +1,206 @@
+{
+  "browser": "153.0.8010.0",
+  "url": "file:// (root standalone HTML)",
+  "offline": true,
+  "network": [],
+  "errors": [],
+  "downloads": [
+    "dndroll-session.json",
+    "dndroll-result.txt",
+    "dndroll-result.json"
+  ],
+  "themeRecords": [
+    {
+      "theme": "dark",
+      "records": [
+        {
+          "class": "btn btn-primary",
+          "foreground": [
+            32,
+            27,
+            12
+          ],
+          "background": [
+            242,
+            197,
+            92
+          ],
+          "ratio": 10.557024979051928
+        },
+        {
+          "class": "btn btn-danger",
+          "foreground": [
+            255,
+            255,
+            255
+          ],
+          "background": [
+            156,
+            39,
+            39
+          ],
+          "ratio": 7.683615852197201
+        },
+        {
+          "class": "issue issue-error",
+          "foreground": [
+            255,
+            196,
+            196
+          ],
+          "background": [
+            76.36,
+            67.52,
+            59.599999999999994
+          ],
+          "ratio": 6.367768372897318
+        },
+        {
+          "class": "issue issue-warning",
+          "foreground": [
+            241,
+            206,
+            130
+          ],
+          "background": [
+            67.12,
+            62.480000000000004,
+            48.12
+          ],
+          "ratio": 7.008858346960456
+        },
+        {
+          "class": "banner banner-info",
+          "foreground": [
+            156,
+            219,
+            172
+          ],
+          "background": [
+            62.400000000000006,
+            66.9,
+            54.099999999999994
+          ],
+          "ratio": 6.375340196588007
+        },
+        {
+          "class": "candidate chosen",
+          "foreground": [
+            245,
+            240,
+            223
+          ],
+          "background": [
+            28,
+            27,
+            23
+          ],
+          "ratio": 15.110183592699238
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "records": [
+        {
+          "class": "btn btn-primary",
+          "foreground": [
+            255,
+            255,
+            255
+          ],
+          "background": [
+            32,
+            79,
+            134
+          ],
+          "ratio": 8.319948118073983
+        },
+        {
+          "class": "btn btn-danger",
+          "foreground": [
+            255,
+            255,
+            255
+          ],
+          "background": [
+            165,
+            32,
+            32
+          ],
+          "ratio": 7.427507011881006
+        },
+        {
+          "class": "issue issue-error",
+          "foreground": [
+            165,
+            32,
+            32
+          ],
+          "background": [
+            244.20000000000002,
+            228.24,
+            228.24
+          ],
+          "ratio": 6.048298364456296
+        },
+        {
+          "class": "issue issue-warning",
+          "foreground": [
+            128,
+            83,
+            0
+          ],
+          "background": [
+            244.84000000000003,
+            241.24,
+            234.60000000000002
+          ],
+          "ratio": 5.921227385677486
+        },
+        {
+          "class": "banner banner-info",
+          "foreground": [
+            27,
+            97,
+            49
+          ],
+          "background": [
+            232.2,
+            239.2,
+            234.4
+          ],
+          "ratio": 6.426880612094595
+        },
+        {
+          "class": "candidate chosen",
+          "foreground": [
+            17,
+            24,
+            39
+          ],
+          "background": [
+            244,
+            245,
+            247
+          ],
+          "ratio": 16.26196690654485
+        }
+      ]
+    }
+  ],
+  "checks": [
+    "native Tab/Enter/Space placement and recall",
+    "Core fixed-sequence equality",
+    "SCORE_CAP retains state",
+    "no nested controls",
+    "dark/light states and computed contrast",
+    "zh/en document language",
+    "expanded English method text",
+    "browsing leaves save unchanged",
+    "390px layout",
+    "Session JSON download/import replay",
+    "TXT download/selectable copy source",
+    "result JSON download"
+  ]
+}

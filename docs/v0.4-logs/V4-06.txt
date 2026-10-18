@@ -1,0 +1,18 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @dndroll/web@0.3.0 test
+> vitest run src/test/batch.test.tsx src/test/dcc.test.tsx
+
+
+ RUN  v2.1.9 /workspace/scratch/a332a702c2b0/work/dndroll/apps/web
+
+ ✓ src/test/dcc.test.tsx (2 tests) 382ms
+ ✓ src/test/batch.test.tsx (6 tests) 1257ms
+   ✓ V4-05 batch defaults to four; independent from autosave/history under StrictMode and language changes 450ms
+   ✓ V4-06 preview/copy/raw JSON leave autosave alone; only confirmed use restores one group 404ms
+
+ Test Files  2 passed (2)
+      Tests  8 passed (8)
+   Start at  05:16:36
+   Duration  2.21s (transform 252ms, setup 232ms, collect 496ms, tests 1.64s, environment 671ms, prepare 135ms)
+

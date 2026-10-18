@@ -1,0 +1,144 @@
+From 5d5b4b5949c5d2edcfe181d68c0a77263a05f35a Mon Sep 17 00:00:00 2001
+From: DNDROLL Maintenance <maintenance@dndroll.local>
+Date: Sun, 18 Oct 2026 04:54:13 +0300
+Subject: [PATCH 1/7] V3-01: separate allocation placement and recall buttons;
+ verify keyboard events
+
+---
+ apps/web/src/components/panels.tsx     | 36 ++++++++-----------------
+ apps/web/src/i18n.ts                   |  2 ++
+ apps/web/src/styles.css                | 10 +++++++
+ apps/web/src/test/maintenance.test.tsx | 37 ++++++++++++++++++++++++++
+ 4 files changed, 60 insertions(+), 25 deletions(-)
+ create mode 100644 apps/web/src/test/maintenance.test.tsx
+
+diff --git a/apps/web/src/components/panels.tsx b/apps/web/src/components/panels.tsx
+index e058d6e..2304f7d 100644
+--- a/apps/web/src/components/panels.tsx
++++ b/apps/web/src/components/panels.tsx
+@@ -234,37 +234,23 @@ export function AllocatePanel({ view, locale, run }: PanelProps) {
+           const placed = looseDice.filter((d) => allocations[d.id] === ab);
+           const score = baseScores[ab] ?? 8;
+           return (
+-            <button key={ab} type="button" className={`allocate-cell${picked ? ' targetable' : ''}`} onClick={() => place(ab)}>
+-              <span className="allocate-cell-head">
++            <div key={ab} className={`allocate-cell${picked ? ' targetable' : ''}`}>
++              <button type="button" className="allocate-cell-head allocate-place" disabled={!picked}
++                aria-label={`${ab} · ${t('placeDie', locale)}`} onClick={() => place(ab)}>
+                 <AbilityName ability={ab} locale={locale} />
+                 <span className={`mono allocate-total${score >= 18 ? ' at-cap' : ''}`}>{score}</span>
+-              </span>
+-              <span className="allocate-cell-dice">
++              </button>
++              <div className="allocate-cell-dice">
+                 <span className="allocate-base mono">8</span>
+                 {placed.map((d) => (
+-                  <span
+-                    key={d.id}
+-                    role="button"
+-                    tabIndex={0}
+-                    className="placed-die"
+-                    title={t('allocateHint', locale)}
+-                    onClick={(e) => {
+-                      e.stopPropagation();
+-                      recall(d.id);
+-                    }}
+-                    onKeyDown={(e) => {
+-                      if (e.key === 'Enter' || e.key === ' ') {
+-                        e.preventDefault();
+-                        e.stopPropagation();
+-                        recall(d.id);
+-                      }
+-                    }}
+-                  >
++                  <button key={d.id} type="button" className="placed-die"
++                    aria-label={`${t('recallDie', locale)} · ${ab} · d6 ${d.value} · ${d.id}`}
++                    onClick={() => recall(d.id)}>
+                     <DieFace value={d.value} size={36} />
+-                  </span>
++                  </button>
+                 ))}
+-              </span>
+-            </button>
++              </div>
++            </div>
+           );
+         })}
+       </div>
+diff --git a/apps/web/src/i18n.ts b/apps/web/src/i18n.ts
+index 65082ae..0df80d9 100644
+--- a/apps/web/src/i18n.ts
++++ b/apps/web/src/i18n.ts
+@@ -53,6 +53,8 @@ const dict = {
+   assignHint: { zh: '先点选一个结果，再点选要放入的属性；点已占用可撤销该格。', en: 'Click a result, then click an ability slot; click an occupied slot to clear it.' },
+   pairsHint: { zh: '每项属性从两个结果中任选其一，可以选较低值。', en: 'Choose either of the two results per ability — the lower one is allowed.' },
+   setsHint: { zh: '十二套属性中选择完整的一套，不能跨套拼接。', en: 'Pick one complete set of six; no mixing across sets.' },
++  placeDie: { zh: '将选中骰子放入此属性', en: 'Place the selected die in this ability' },
++  recallDie: { zh: '撤回骰子', en: 'Recall die' },
+   allocateHint: { zh: '点选一颗骰子，再点目标属性放入；点已放置的骰子撤回。属性不能超过 18。', en: 'Click a die, then an ability to place it; click a placed die to take it back. No score may exceed 18.' },
+   poolHint: { zh: '把骰池分配到六项属性，每项至少 3 颗，总和必须恰好等于骰池总数；确认后才能掷骰。', en: 'Distribute the pool across six abilities, at least 3 dice each, using exactly the full pool; confirm before rolling.' },
+   pointBuyHint: { zh: '逐项调整数值；允许临时超支以便调整，但超支不能完成。', en: 'Adjust each score; temporary overspending is allowed while editing, but you cannot finalize over budget.' },
+diff --git a/apps/web/src/styles.css b/apps/web/src/styles.css
+index 67618cc..13f0d5c 100644
+--- a/apps/web/src/styles.css
++++ b/apps/web/src/styles.css
+@@ -1505,3 +1505,13 @@ textarea {
+ @media (max-width: 520px) { .quick-roll-bar .panel-hint { display: none; } .quick-roll-bar { justify-content: flex-end; } }
+ 
+ :root[data-theme="light"] .btn-danger { color: #fff; }
++
++/* Separate placement and recall controls; the ability cell is a plain container. */
++.allocate-place {
++  width: 100%; min-height: 44px; padding: 0;
++  background: transparent; border: 0; color: inherit; font: inherit;
++  text-align: left; cursor: pointer;
++}
++.allocate-place:disabled { cursor: default; }
++.placed-die { padding: 3px; background: transparent; border: 1px solid var(--line); color: inherit; }
++.allocate-cell { cursor: default; }
+diff --git a/apps/web/src/test/maintenance.test.tsx b/apps/web/src/test/maintenance.test.tsx
+new file mode 100644
+index 0000000..d2e5c83
+--- /dev/null
++++ b/apps/web/src/test/maintenance.test.tsx
+@@ -0,0 +1,37 @@
++import { useState } from 'react';
++import { fireEvent, render, screen } from '@testing-library/react';
++import userEvent from '@testing-library/user-event';
++import { applyAction, createSession, getSessionView, sequenceRng, type Action, type Session } from '@dndroll/core';
++import { AllocatePanel } from '../components/panels';
++
++it('V3-01: real sibling buttons support Tab, Enter and Space without changing Core events', async () => {
++  const initial = applyAction(createSession({versionId:'adnd2e',methodId:'adnd2e.phb-VI'}), {type:'roll'}, sequenceRng([6,5,4,3,2,1,1]));
++  let actual: Session = initial;
++  function Harness() {
++    const [session, setSession] = useState(initial);
++    return <AllocatePanel view={getSessionView(session)} locale="zh" run={(action:Action) => {
++      actual=applyAction(session,action); setSession(actual); return true;
++    }}/>;
++  }
++  const {container}=render(<Harness/>);
++  expect(container.querySelector('button button, button [role="button"]')).toBeNull();
++  const user=userEvent.setup();
++  await user.tab();
++  expect(document.activeElement).toBe(screen.getByRole('button',{name:'d6 6'}));
++  await user.keyboard('{Enter}');
++  // The seven dice are followed by the first placement button in Tab order.
++  for(let i=0;i<7;i++) await user.tab();
++  expect(document.activeElement).toBe(screen.getByRole('button',{name:/^STR/}));
++  await user.keyboard(' ');
++  const dieId=getSessionView(initial).attempt.looseDice[0]!.id;
++  let expected=applyAction(initial,{type:'allocateDie',dieId,ability:'STR'});
++  expect(actual).toEqual(expected);
++  expect(screen.getByRole('button',{name:/^STR/}).textContent).toContain('14');
++  const recall=screen.getByRole('button',{name:/^撤回骰子/});
++  for(let i=0;i<8 && document.activeElement!==recall;i++) await user.tab();
++  expect(document.activeElement).toBe(recall);
++  await user.keyboard('{Enter}');
++  expected=applyAction(expected,{type:'allocateDie',dieId,ability:null});
++  expect(actual).toEqual(expected);
++  expect(container.querySelector('button button, button [role="button"]')).toBeNull();
++});
+-- 
+2.51.1
+

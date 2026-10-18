@@ -1,0 +1,6 @@
+aef935e V4-06: inspect and export each batch session; explicitly restore one without overwriting autosave
+930c65e V4-05: add isolated batch controls with explicit eligibility and four-count default
+c28b5e5 V4-04: orchestrate independent audited sessions with bounded batch generation
+6c04b6b V4-03: add DCC modifier table with all score boundaries and result UI
+4c76345 V4-02: centralize native ability mapping across Core exports and Web displays
+8c181da V4-01: add DCC ordered 3d6 method without changing existing rules

@@ -1,0 +1,32 @@
+{
+  "name": "dndroll-project",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/core",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p packages/core/tsconfig.json && node scripts/build-browser.mjs",
+    "typecheck": "tsc -p packages/core/tsconfig.json --noEmit",
+    "test": "node --test packages/core/tests/*.test.mjs",
+    "check": "npm run build && npm test",
+    "demo": "node examples/demo.mjs",
+    "fixtures": "node scripts/fixtures.mjs",
+    "dev:web": "npm run dev --workspace apps/web",
+    "build:web": "npm run build --workspace apps/web",
+    "test:web": "npm run test --workspace apps/web",
+    "typecheck:web": "npm run typecheck --workspace apps/web",
+    "dev:desktop": "npm run desktop:dev --workspace apps/web",
+    "build:desktop": "npm run desktop:build --workspace apps/web",
+    "build:desktop:portable": "npm run desktop:portable --workspace apps/web"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "esbuild": "0.25.12"
+  }
+}

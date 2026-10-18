@@ -1,0 +1,30 @@
+import fs from 'node:fs';
+import {createSession,applyAction,getSessionView,listVersions,listMethods,sequenceRng,serializeSession,getAbilityMapping,exportResult,generateBatch} from '../packages/core/dist/index.js';
+const examples={};
+function record(name,s){examples[name]={session:JSON.parse(serializeSession(s)),view:getSessionView(s)};return s;}
+function roll(id,dice){const s=createSession({versionId:id.split('.')[0],methodId:id});return applyAction(s,{type:'roll'},sequenceRng(dice));}
+record('before-roll',createSession({versionId:'ose-classic',methodId:'ose-classic.3d6-in-order'}));
+record('fixed-review',roll('odnd1974.3d6-in-order',Array(18).fill(3)));
+record('free-assignment',roll('dnd5e2024.roll',Array(6).fill([1,3,4,6]).flat()));
+record('best-six',roll('adnd1e.dmg-II',[...Array(18).fill(2),...Array(18).fill(5)]));
+record('pairs',roll('adnd2e.phb-II',Array(6).fill([1,2,3,4,5,6]).flat()));
+record('sets',roll('adnd1e.dmg-IV',Array(216).fill(4)));
+record('allocate-dice',roll('adnd2e.phb-VI',[6,5,4,3,2,1,6]));
+record('pool-configuration',createSession({versionId:'pf1',methodId:'pf1.dice-pool'}));
+record('point-buy',createSession({versionId:'pf1',methodId:'pf1.purchase',options:{budget:25}}));
+record('array',createSession({versionId:'dnd5e2014',methodId:'dnd5e2014.array'}));
+record('reroll-eligible',roll('dnd35.phb-roll',Array(24).fill(1)));
+let s=roll('ose-classic.3d6-in-order',Array(18).fill(4));
+s=applyAction(s,{type:'selectClass',classId:'thief'});record('class-adjustment',s);
+s=applyAction(s,{type:'trade',from:'INT',to:'DEX'});record('adjusted-review',s);
+s=applyAction(s,{type:'finalize'});record('complete',s);
+const dccDice=[1,1,1,6,6,6,2,2,2,5,5,5,3,3,3,4,4,4];
+const dcc=roll('dcc.3d6-in-order',dccDice);
+record('dcc-review',dcc);
+const dccDone=record('dcc-complete',applyAction(dcc,{type:'finalize'}));
+examples['dcc-complete'].result=exportResult(dccDone);
+examples['dcc-batch-4']={entries:generateBatch({versionId:'dcc',methodId:'dcc.3d6-in-order'},4,sequenceRng(Array(4).fill(dccDice).flat())).map(entry=>({...entry,result:exportResult(entry.session)}))};
+const catalog=listVersions().map(v=>({...v,abilityMapping:getAbilityMapping(v.id),methods:listMethods(v.id)}));
+fs.writeFileSync('contracts/examples.json',JSON.stringify(examples,null,2)+'\n');
+fs.writeFileSync('contracts/catalog.json',JSON.stringify(catalog,null,2)+'\n');
+console.log(`Wrote ${Object.keys(examples).length} real engine snapshots and the bilingual catalog.`);

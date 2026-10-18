@@ -1,0 +1,250 @@
+From 91230c6928edbbc89c774c4e8ce52ae5f01b541e Mon Sep 17 00:00:00 2001
+From: DNDROLL Maintenance <maintenance@dndroll.local>
+Date: Sun, 18 Oct 2026 04:56:39 +0300
+Subject: [PATCH 3/7] V3-03: pass locale explicitly to dice and dialogs;
+ synchronize document language
+
+---
+ apps/web/src/App.tsx                   |  1 +
+ apps/web/src/components/DieFace.tsx    |  7 ++++--
+ apps/web/src/components/classTrade.tsx |  2 +-
+ apps/web/src/components/common.tsx     | 12 +++++-----
+ apps/web/src/components/exporting.tsx  |  6 ++---
+ apps/web/src/components/panels.tsx     | 10 ++++-----
+ apps/web/src/i18n.ts                   |  1 +
+ apps/web/src/test/maintenance.test.tsx | 31 ++++++++++++++++++++++++++
+ 8 files changed, 53 insertions(+), 17 deletions(-)
+
+diff --git a/apps/web/src/App.tsx b/apps/web/src/App.tsx
+index 5f1006d..1fa5bfb 100644
+--- a/apps/web/src/App.tsx
++++ b/apps/web/src/App.tsx
+@@ -32,6 +32,7 @@ export default function App({ rng }: { rng?: Rng }) {
+   const locale: Locale = prefs.locale;
+   const ctl = useSessionController(rng);
+   const versions = useMemo(listVersions, []);
++  useEffect(() => { document.documentElement.lang = locale === 'zh' ? 'zh-CN' : 'en'; }, [locale]);
+   useEffect(() => {
+     document.documentElement.dataset.theme = prefs.theme ?? 'dark';
+   }, [prefs.theme]);
+diff --git a/apps/web/src/components/DieFace.tsx b/apps/web/src/components/DieFace.tsx
+index c83980a..53850c4 100644
+--- a/apps/web/src/components/DieFace.tsx
++++ b/apps/web/src/components/DieFace.tsx
+@@ -1,5 +1,8 @@
++import type { Locale } from '@dndroll/core';
++import { t } from '../i18n';
++
+ /** 手绘风格 SVG d6 骰面。value 1–6；dropped 表示被舍弃的骰。 */
+-export function DieFace({ value, dropped = false, size = 34 }: { value: number; dropped?: boolean; size?: number }) {
++export function DieFace({ value, locale, dropped = false, size = 34 }: { value: number; locale: Locale; dropped?: boolean; size?: number }) {
+   const pip = (cx: number, cy: number) => <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={7.5} />;
+   const P: Record<number, [number, number][]> = {
+     1: [[50, 50]],
+@@ -16,7 +19,7 @@ export function DieFace({ value, dropped = false, size = 34 }: { value: number;
+       height={size}
+       viewBox="0 0 100 100"
+       role="img"
+-      aria-label={dropped ? `d6 ${value} (dropped)` : `d6 ${value}`}
++      aria-label={dropped ? `d6 ${value} (${t('dropped', locale)})` : `d6 ${value}`}
+     >
+       <rect className="die-body" x={4} y={4} width={92} height={92} rx={18} />
+       <g className="die-pips">{(P[value] ?? []).map(([x, y]) => pip(x, y))}</g>
+diff --git a/apps/web/src/components/classTrade.tsx b/apps/web/src/components/classTrade.tsx
+index 1de312e..6d8266d 100644
+--- a/apps/web/src/components/classTrade.tsx
++++ b/apps/web/src/components/classTrade.tsx
+@@ -117,7 +117,7 @@ export function RerollBar({ view, locale, run }: PanelProps) {
+         </button>
+       )}
+       {showReferee && (
+-        <Modal title={t('rerollReferee', locale)} onClose={() => setShowReferee(false)}>
++        <Modal locale={locale} title={t('rerollReferee', locale)} onClose={() => setShowReferee(false)}>
+           <label className="field">
+             {t('refereeNote', locale)}
+             <textarea value={note} onChange={(e) => setNote(e.target.value)} maxLength={500} rows={3} placeholder={t('refereeNotePlaceholder', locale)} />
+diff --git a/apps/web/src/components/common.tsx b/apps/web/src/components/common.tsx
+index 8e8b527..5dd3037 100644
+--- a/apps/web/src/components/common.tsx
++++ b/apps/web/src/components/common.tsx
+@@ -13,12 +13,12 @@ export function AbilityName({ ability, locale }: { ability: Ability; locale: Loc
+ }
+ 
+ /** 单组骰子：保留骰实心，舍弃骰空心带斜线，后缀显示总和。 */
+-export function DiceRow({ candidate, size = 30 }: { candidate: Candidate; size?: number }) {
++export function DiceRow({ candidate, locale, size = 30 }: { candidate: Candidate; locale: Locale; size?: number }) {
+   if (candidate.dice.length === 0) return null;
+   return (
+     <span className="dice-row">
+       {candidate.dice.map((d) => (
+-        <DieFace key={d.id} value={d.value} dropped={!d.kept} size={size} />
++        <DieFace locale={locale} key={d.id} value={d.value} dropped={!d.kept} size={size} />
+       ))}
+     </span>
+   );
+@@ -27,7 +27,7 @@ export function DiceRow({ candidate, size = 30 }: { candidate: Candidate; size?:
+ export function CandidateFace({ candidate, locale }: { candidate: Candidate; locale: Locale }) {
+   return (
+     <span className="candidate-face">
+-      <DiceRow candidate={candidate} />
++      <DiceRow locale={locale} candidate={candidate} />
+       <span className="candidate-total">
+         <span className="mono">{candidate.total}</span>
+         {candidate.dice.some((d) => !d.kept) && (
+@@ -67,7 +67,7 @@ export function Issues({ issues, locale }: { issues: Issue[]; locale: Locale })
+   );
+ }
+ 
+-export function Modal({ title, onClose, children, wide = false }: { title: string; onClose: () => void; children: ReactNode; wide?: boolean }) {
++export function Modal({ title, locale, onClose, children, wide = false }: { locale: Locale; title: string; onClose: () => void; children: ReactNode; wide?: boolean }) {
+   const ref = useRef<HTMLDivElement>(null);
+   useEffect(() => {
+     const onKey = (e: KeyboardEvent) => {
+@@ -82,7 +82,7 @@ export function Modal({ title, onClose, children, wide = false }: { title: strin
+       <div className={`modal${wide ? ' modal-wide' : ''}`} role="dialog" aria-modal="true" aria-label={title} ref={ref}>
+         <div className="modal-head">
+           <h2>{title}</h2>
+-          <button type="button" className="btn btn-ghost modal-close" onClick={onClose} aria-label="Close">
++          <button type="button" className="btn btn-ghost modal-close" onClick={onClose} aria-label={t('close', locale)}>
+             ✕
+           </button>
+         </div>
+@@ -94,7 +94,7 @@ export function Modal({ title, onClose, children, wide = false }: { title: strin
+ 
+ export function ConfirmDialog({ title, body, confirmLabel, locale, onConfirm, onCancel }: { title: string; body: string; confirmLabel: string; locale: Locale; onConfirm: () => void; onCancel: () => void }) {
+   return (
+-    <Modal title={title} onClose={onCancel}>
++    <Modal locale={locale} title={title} onClose={onCancel}>
+       <p className="modal-body-text">{body}</p>
+       <div className="modal-actions">
+         <button type="button" className="btn" onClick={onCancel}>
+diff --git a/apps/web/src/components/exporting.tsx b/apps/web/src/components/exporting.tsx
+index bd01750..af6e732 100644
+--- a/apps/web/src/components/exporting.tsx
++++ b/apps/web/src/components/exporting.tsx
+@@ -177,7 +177,7 @@ export function ImportModal({ locale, onClose, onRestore }: { locale: Locale; on
+   };
+ 
+   return (
+-    <Modal title={t('importTitle', locale)} onClose={onClose} wide>
++    <Modal locale={locale} title={t('importTitle', locale)} onClose={onClose} wide>
+       <p className="panel-hint">{t('importHint', locale)}</p>
+       <input
+         type="file"
+@@ -203,11 +203,11 @@ export function ImportModal({ locale, onClose, onRestore }: { locale: Locale; on
+   );
+ }
+ 
+-export function DiceInline({ values, dropped }: { values: number[]; dropped?: boolean[] }) {
++export function DiceInline({ values, dropped, locale }: { locale: Locale; values: number[]; dropped?: boolean[] }) {
+   return (
+     <span className="dice-row">
+       {values.map((v, i) => (
+-        <DieFace key={i} value={v} dropped={dropped?.[i]} size={24} />
++        <DieFace locale={locale} key={i} value={v} dropped={dropped?.[i]} size={24} />
+       ))}
+     </span>
+   );
+diff --git a/apps/web/src/components/panels.tsx b/apps/web/src/components/panels.tsx
+index 2304f7d..8ed76e6 100644
+--- a/apps/web/src/components/panels.tsx
++++ b/apps/web/src/components/panels.tsx
+@@ -17,7 +17,7 @@ export function RollPanel({ view, locale, run }: PanelProps) {
+     <section className="panel roll-panel">
+       <p className="panel-hint">{t(view.method.randomBudget ? 'rollBudgetHint' : 'rollHint', locale)}</p>
+       <button type="button" className="btn btn-primary btn-roll" aria-label={t('roll', locale)} onClick={() => run({ type: 'roll' })}>
+-        <DieFace value={5} size={30} />
++        <DieFace locale={locale} value={5} size={30} />
+         {t('roll', locale)}
+       </button>
+       {view.method.mode === 'pool' && <p className="panel-hint">{t('configureFirst', locale)}</p>}
+@@ -179,7 +179,7 @@ export function SetsPanel({ view, locale, run }: PanelProps) {
+                 return (
+                   <span key={ab} className="set-line">
+                     <span className="set-ability">{ab}</span>
+-                    <DiceRow candidate={c!} size={18} />
++                    <DiceRow locale={locale} candidate={c!} size={18} />
+                     <span className="mono">{c?.total}</span>
+                   </span>
+                 );
+@@ -223,7 +223,7 @@ export function AllocatePanel({ view, locale, run }: PanelProps) {
+               aria-pressed={picked === d.id}
+               onClick={() => setPicked(picked === d.id ? null : d.id)}
+             >
+-              <DieFace value={d.value} size={44} />
++              <DieFace locale={locale} value={d.value} size={44} />
+             </button>
+           ))}
+           {unplaced.length === 0 && <span className="slot-empty">—</span>}
+@@ -246,7 +246,7 @@ export function AllocatePanel({ view, locale, run }: PanelProps) {
+                   <button key={d.id} type="button" className="placed-die"
+                     aria-label={`${t('recallDie', locale)} · ${ab} · d6 ${d.value} · ${d.id}`}
+                     onClick={() => recall(d.id)}>
+-                    <DieFace value={d.value} size={36} />
++                    <DieFace locale={locale} value={d.value} size={36} />
+                   </button>
+                 ))}
+               </div>
+@@ -314,7 +314,7 @@ export function PoolPanel({ view, locale, run }: PanelProps) {
+           {t('confirmConfig', locale)}
+         </button>
+         <button type="button" className="btn btn-primary" aria-label={t('roll', locale)} disabled={!ready || dirty} onClick={() => run({ type: 'roll' })}>
+-          <DieFace value={3} size={24} /> {t('roll', locale)}
++          <DieFace locale={locale} value={3} size={24} /> {t('roll', locale)}
+         </button>
+       </div>
+     </section>
+diff --git a/apps/web/src/i18n.ts b/apps/web/src/i18n.ts
+index 0df80d9..09a12da 100644
+--- a/apps/web/src/i18n.ts
++++ b/apps/web/src/i18n.ts
+@@ -2,6 +2,7 @@ import type { Ability, Locale, Text } from '@dndroll/core';
+ 
+ /** UI 界面文案。规则说明文字一律来自 @dndroll/core，本文件只包含界面框架文本。 */
+ const dict = {
++  close: { zh: '关闭', en: 'Close' },
+   appTitle: { zh: 'DNDROLL 属性生成器', en: 'DNDROLL Ability Generator' },
+   appSubtitle: { zh: '多版本 D&D 属性掷骰工具 · 本地离线运行', en: 'Multi-edition D&D ability roller · runs fully offline' },
+   language: { zh: 'English', en: '中文' },
+diff --git a/apps/web/src/test/maintenance.test.tsx b/apps/web/src/test/maintenance.test.tsx
+index d2e5c83..5e2c61d 100644
+--- a/apps/web/src/test/maintenance.test.tsx
++++ b/apps/web/src/test/maintenance.test.tsx
+@@ -35,3 +35,34 @@ it('V3-01: real sibling buttons support Tab, Enter and Space without changing Co
+   expect(actual).toEqual(expected);
+   expect(container.querySelector('button button, button [role="button"]')).toBeNull();
+ });
++
++import App from '../App';
++import { DieFace } from '../components/DieFace';
++import { Modal } from '../components/common';
++
++it('V3-03: modal and dropped dice take an explicit locale',()=>{
++  const {rerender}=render(<><Modal title="测试" locale="zh" onClose={()=>{}}><DieFace value={1} dropped locale="zh"/></Modal></>);
++  expect(screen.getByRole('button',{name:'关闭'})).toBeTruthy();
++  expect(screen.getByRole('img',{name:'d6 1 (舍弃)'})).toBeTruthy();
++  rerender(<Modal title="Test" locale="en" onClose={()=>{}}><DieFace value={1} dropped locale="en"/></Modal>);
++  expect(screen.getByRole('button',{name:'Close'})).toBeTruthy();
++  expect(screen.getByRole('img',{name:'d6 1 (dropped)'})).toBeTruthy();
++});
++
++it('V3-03: language updates html.lang and dice labels without changing the session',()=>{
++  render(<App rng={sequenceRng(Array(24).fill(3))}/>);
++  fireEvent.click(screen.getByRole('button',{name:'D&D 5E（2024）'}));
++  fireEvent.click(screen.getByRole('button',{name:/随机生成/}));
++  fireEvent.click(screen.getByRole('button',{name:'开始生成'}));
++  fireEvent.click(screen.getByRole('button',{name:'掷骰'}));
++  const saved=localStorage.getItem('dndroll.session.v1');
++  expect(document.documentElement.lang).toBe('zh-CN');
++  expect(screen.getAllByRole('img',{name:'d6 3 (舍弃)'}).length).toBe(6);
++  fireEvent.click(screen.getByRole('button',{name:'English'}));
++  expect(document.documentElement.lang).toBe('en');
++  expect(screen.getAllByRole('img',{name:'d6 3 (dropped)'}).length).toBe(6);
++  expect(localStorage.getItem('dndroll.session.v1')).toBe(saved);
++  fireEvent.click(screen.getByRole('button',{name:'中文'}));
++  expect(document.documentElement.lang).toBe('zh-CN');
++  expect(localStorage.getItem('dndroll.session.v1')).toBe(saved);
++});
+-- 
+2.51.1
+

@@ -1,0 +1,2 @@
+d7a420efb22651f428b7e3c7b4421a8524f9be7d0306793a60f48bbaf8a3edfc  Windows/DNDROLL-Windows-x64-setup.exe
+3068b95084a092c0d2e3093f7c1711a6a1eea1be004a54e301ae568797910a7d  Windows/DNDROLL-Windows-x64.exe

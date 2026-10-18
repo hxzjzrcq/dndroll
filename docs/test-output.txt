@@ -1,0 +1,70 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> dndroll-project@0.1.0 check
+> npm run build && npm test
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> dndroll-project@0.1.0 build
+> tsc -p packages/core/tsconfig.json && node scripts/build-browser.mjs
+
+Built ESM, TypeScript declarations, and standalone browser bundle.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> dndroll-project@0.1.0 test
+> node --test packages/core/tests/*.test.mjs
+
+✔ Catalog: nine separate game entries, bilingual text, sources, 27 ready + 1 blocked (1.944652ms)
+✔ Golden totals: all 4d6 methods remove exactly one tied lowest die (4.040802ms)
+✔ Golden fixed order: OD&D CON/DEX differs from B/X, OSE and modern 2E (1.922569ms)
+✔ 2E II permits low selection but only within that ability pair (2.762033ms)
+✔ 1E II forces highest six; 2E IV permits lower six (1.094911ms)
+✔ 1E II tied cutoff may choose any tied ID but cannot omit a higher result (0.821859ms)
+✔ 1E III uses six independent rolls per fixed ability, 108 dice (0.8027ms)
+✔ 1E IV chooses an intact set and consumes 216 dice (1.909859ms)
+✔ 2E VI: whole dice, movable assignments, cap, completion and conservation (2.005233ms)
+✔ Free assignment identities survive duplicates; values cannot be fabricated (4.572644ms)
+✔ PF1 Classic uses preselected order; Heroic adds six (1.251437ms)
+✔ PF1 dice pool: allocation before rolling; 24/28 totals; highest three (0.820547ms)
+✔ Three point tables use independent costs, bases, bounds and budget completion (1.356596ms)
+✔ 3.5 reroll uses OR and inclusive boundaries, without forcing reroll (1.726563ms)
+✔ B/X and OSE trade restrictions, donor minimum, cap and resetting (1.701125ms)
+✔ Referee replacement requires an explicit note and preserves prior rolls (0.622578ms)
+✔ Save/load replays actions, detects malformed or illegal records, and freezes outputs (1.966134ms)
+✔ Fixed RNG failures are explicit; no hidden random fallback (0.261304ms)
+✔ Lifecycle: odnd1974.3d6-in-order (0.543309ms)
+✔ Lifecycle: bx1981.3d6-in-order (0.345721ms)
+✔ Lifecycle: ose-classic.3d6-in-order (0.278199ms)
+✔ Lifecycle: adnd1e.dmg-I (0.421215ms)
+✔ Lifecycle: adnd1e.dmg-II (0.662609ms)
+✔ Lifecycle: adnd1e.dmg-III (1.074389ms)
+✔ Lifecycle: adnd1e.dmg-IV (1.901447ms)
+✔ Lifecycle: adnd2e.phb-I (0.280814ms)
+✔ Lifecycle: adnd2e.phb-II (0.998015ms)
+✔ Lifecycle: adnd2e.phb-III (0.399973ms)
+✔ Lifecycle: adnd2e.phb-IV (0.388766ms)
+✔ Lifecycle: adnd2e.phb-V (0.632433ms)
+✔ Lifecycle: adnd2e.phb-VI (0.784423ms)
+✔ Lifecycle: dnd35.phb-roll (0.495648ms)
+✔ Lifecycle: dnd35.dmg-point-buy (0.360754ms)
+✔ Lifecycle: dnd35.dmg-elite-array (1.06155ms)
+✔ Lifecycle: pf1.standard (0.544391ms)
+✔ Lifecycle: pf1.classic (0.508186ms)
+✔ Lifecycle: pf1.heroic (0.478211ms)
+✔ Lifecycle: pf1.dice-pool (0.501947ms)
+✔ Lifecycle: pf1.purchase (0.183437ms)
+✔ Lifecycle: dnd5e2014.roll (0.317459ms)
+✔ Lifecycle: dnd5e2014.array (0.387314ms)
+✔ Lifecycle: dnd5e2014.point-buy (0.334514ms)
+✔ Lifecycle: dnd5e2024.roll (0.711513ms)
+✔ Lifecycle: dnd5e2024.array (0.43095ms)
+✔ Lifecycle: dnd5e2024.point-buy (0.264188ms)
+✔ Standalone browser bundle runs without Node APIs, network or imports (5.036143ms)
+ℹ tests 46
+ℹ suites 0
+ℹ pass 46
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 143.248322

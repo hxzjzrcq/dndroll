@@ -1,0 +1,18 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @dndroll/web@0.2.0 test
+> vitest run src/test/history-cache.test.tsx src/test/quick-roll.test.tsx
+
+
+ RUN  v2.1.9 /workspace/scratch/a332a702c2b0/work/dndroll/apps/web
+
+ ✓ src/test/history-cache.test.tsx (2 tests) 342ms
+   ✓ V3-04: browsing and language rerenders reuse each history Session 315ms
+ ✓ src/test/quick-roll.test.tsx (28 tests) 731ms
+   ✓ 界面：连续生成无确认；恢复分配与锁定状态；切语言不重掷且重置面板临时选择 626ms
+
+ Test Files  2 passed (2)
+      Tests  30 passed (30)
+   Start at  04:56:56
+   Duration  1.48s (transform 218ms, setup 152ms, collect 356ms, tests 1.07s, environment 568ms, prepare 108ms)
+

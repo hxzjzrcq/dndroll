@@ -1,0 +1,121 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> dndroll-project@0.3.0 check
+> npm run build && npm test
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> dndroll-project@0.3.0 build
+> tsc -p packages/core/tsconfig.json && node scripts/build-browser.mjs
+
+Built ESM, TypeScript declarations, and standalone browser bundle.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> dndroll-project@0.3.0 test
+> node --test packages/core/tests/*.test.mjs
+
+✔ V4-04 four DCC sessions exactly equal four consecutive normal lifecycles on one RNG stream (10.251768ms)
+✔ V4-04 count 1 makes separate complete sessions (0.614853ms)
+✔ V4-04 count 2 makes separate complete sessions (0.621523ms)
+✔ V4-04 count 4 makes separate complete sessions (0.704888ms)
+✔ V4-04 count 8 makes separate complete sessions (1.866153ms)
+✔ V4-04 invalid counts and unavailable methods consume no dice (0.908163ms)
+✔ V4-04 a depleted stream reports the failed group and never returns a partial batch (0.538168ms)
+✔ V4-04 batch eligibility is distinct from random generation; ordered methods preserve their own rules (6.087222ms)
+✔ Catalog: ten separate game entries, bilingual text, sources, 32 ready + 1 blocked (5.856876ms)
+✔ Golden totals: all 4d6 methods remove exactly one tied lowest die (4.382332ms)
+✔ Golden fixed order: OD&D CON/DEX differs from B/X, OSE and modern 2E (3.843483ms)
+✔ 2E II permits low selection but only within that ability pair (3.290202ms)
+✔ 1E II forces highest six; 2E IV permits lower six (2.167024ms)
+✔ 1E II tied cutoff may choose any tied ID but cannot omit a higher result (1.170648ms)
+✔ 1E III uses six independent rolls per fixed ability, 108 dice (4.824852ms)
+✔ 1E IV chooses an intact set and consumes 216 dice (4.208541ms)
+✔ 2E VI: whole dice, movable assignments, cap, completion and conservation (2.67018ms)
+✔ Free assignment identities survive duplicates; values cannot be fabricated (0.757959ms)
+✔ PF1 Classic uses preselected order; Heroic adds six (1.575241ms)
+✔ PF1 dice pool: allocation before rolling; 24/28 totals; highest three (1.562056ms)
+✔ Three point tables use independent costs, bases, bounds and budget completion (3.611003ms)
+✔ 3.5 reroll uses OR and inclusive boundaries, without forcing reroll (2.519289ms)
+✔ B/X and OSE trade restrictions, donor minimum, cap and resetting (2.51047ms)
+✔ Referee replacement requires an explicit note and preserves prior rolls (1.18502ms)
+✔ Save/load replays actions, detects malformed or illegal records, and freezes outputs (1.833954ms)
+✔ Fixed RNG failures are explicit; no hidden random fallback (0.31952ms)
+✔ Lifecycle: odnd1974.3d6-in-order (0.69904ms)
+✔ Lifecycle: bx1981.3d6-in-order (0.574272ms)
+✔ Lifecycle: ose-classic.3d6-in-order (0.31303ms)
+✔ Lifecycle: adnd1e.dmg-I (1.412111ms)
+✔ Lifecycle: adnd1e.dmg-II (0.601473ms)
+✔ Lifecycle: adnd1e.dmg-III (0.888995ms)
+✔ Lifecycle: adnd1e.dmg-IV (1.560875ms)
+✔ Lifecycle: adnd2e.phb-I (0.315353ms)
+✔ Lifecycle: adnd2e.phb-II (1.097899ms)
+✔ Lifecycle: adnd2e.phb-III (3.56231ms)
+✔ Lifecycle: adnd2e.phb-IV (0.427422ms)
+✔ Lifecycle: adnd2e.phb-V (0.680272ms)
+✔ Lifecycle: adnd2e.phb-VI (3.857032ms)
+✔ Lifecycle: adnd2e.sp-VII (0.915535ms)
+✔ Lifecycle: adnd2e.sp-VIII (0.582715ms)
+✔ Lifecycle: adnd2e.sp-IX (1.282086ms)
+✔ Lifecycle: adnd2e.sp-X (2.113684ms)
+✔ Lifecycle: dnd35.phb-roll (0.464367ms)
+✔ Lifecycle: dnd35.dmg-point-buy (0.276886ms)
+✔ Lifecycle: dnd35.dmg-elite-array (0.467953ms)
+✔ Lifecycle: pf1.standard (0.415244ms)
+✔ Lifecycle: pf1.classic (2.289419ms)
+✔ Lifecycle: pf1.heroic (0.749265ms)
+✔ Lifecycle: pf1.dice-pool (0.396596ms)
+✔ Lifecycle: pf1.purchase (0.216885ms)
+✔ Lifecycle: dnd5e2014.roll (0.496927ms)
+✔ Lifecycle: dnd5e2014.array (0.375464ms)
+✔ Lifecycle: dnd5e2014.point-buy (0.372409ms)
+✔ Lifecycle: dcc.3d6-in-order (0.501243ms)
+✔ Lifecycle: dnd5e2024.roll (0.462515ms)
+✔ Lifecycle: dnd5e2024.array (0.387181ms)
+✔ Lifecycle: dnd5e2024.point-buy (0.273401ms)
+✔ Standalone browser bundle runs without Node APIs, network or imports (9.626278ms)
+✔ V4-01 DCC uses the approved slot order and exactly 18 recorded d6 (6.358885ms)
+✔ V4-01 DCC STR 18 never rolls d100; repeated roll is rejected (1.170868ms)
+✔ V4-02 native names and JSON mapping are unambiguous; text never labels Luck as CHA (2.516129ms)
+✔ V4-03 DCC modifier 3 -> -3 (0.174842ms)
+✔ V4-03 DCC modifier 4 -> -2 (0.122504ms)
+✔ V4-03 DCC modifier 5 -> -2 (0.11342ms)
+✔ V4-03 DCC modifier 6 -> -1 (0.149975ms)
+✔ V4-03 DCC modifier 7 -> -1 (0.104467ms)
+✔ V4-03 DCC modifier 8 -> -1 (0.144587ms)
+✔ V4-03 DCC modifier 9 -> 0 (0.227792ms)
+✔ V4-03 DCC modifier 10 -> 0 (0.114281ms)
+✔ V4-03 DCC modifier 11 -> 0 (0.101473ms)
+✔ V4-03 DCC modifier 12 -> 0 (0.050696ms)
+✔ V4-03 DCC modifier 13 -> 1 (0.044206ms)
+✔ V4-03 DCC modifier 14 -> 1 (0.078087ms)
+✔ V4-03 DCC modifier 15 -> 1 (0.05354ms)
+✔ V4-03 DCC modifier 16 -> 2 (0.038988ms)
+✔ V4-03 DCC modifier 17 -> 2 (0.058588ms)
+✔ V4-03 DCC modifier 18 -> 3 (0.037026ms)
+✔ V4-03 modifiers survive native result export and text formatting without altering stored scores (3.114152ms)
+✔ VII exact 75, 3–18 bounds; manual d100 once, retained across STR edits; export and replay (7.858002ms)
+✔ VIII fixed 24 pool, cap 6 differs from PF1; automatic percentile follows final STR (1.283518ms)
+✔ IX 2d6=2: budget 68, cap 18 (0.65244ms)
+✔ IX 2d6=3: budget 70, cap 18 (0.326911ms)
+✔ IX 2d6=4: budget 72, cap 17 (1.256257ms)
+✔ IX 2d6=5: budget 72, cap 18 (0.648263ms)
+✔ IX 2d6=6: budget 74, cap 17 (0.669997ms)
+✔ IX 2d6=7: budget 74, cap 18 (0.43936ms)
+✔ IX 2d6=8: budget 76, cap 17 (0.583226ms)
+✔ IX 2d6=9: budget 76, cap 16 (0.570897ms)
+✔ IX 2d6=10: budget 78, cap 16 (0.446781ms)
+✔ IX 2d6=11: budget 78, cap 15 (1.07198ms)
+✔ IX 2d6=12: budget 80, cap 15 (0.279219ms)
+✔ X buys exceptional Strength from same budget, no d100; lowering STR refunds and clears purchase (1.29888ms)
+✔ 1E/2E allocation rolls once at STR 18, retains percentile when unassigned/reassigned, logs d100 separately (1.755467ms)
+✔ 2E pairs, sets and die allocation trigger auto d100; normal editions never do (4.160259ms)
+✔ Legacy 0.1 save reads without inventing dice, first edit upgrades rules and records actual percentile (0.835504ms)
+✔ Dice side validation rejects forged d100 and d6 logs; failed auto roll leaves input unchanged (1.382957ms)
+ℹ tests 97
+ℹ suites 0
+ℹ pass 97
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 199.731628

@@ -1,0 +1,29 @@
+{
+  "browser": "153.0.8010.0",
+  "offline": true,
+  "url": "file:// standalone HTML",
+  "network": [],
+  "errors": [],
+  "downloads": [
+    "dndroll-dcc-1-session.json",
+    "dndroll-dcc-2-session.json",
+    "dndroll-dcc-3-session.json",
+    "dndroll-dcc-4-session.json",
+    "dndroll-result.json",
+    "dndroll-result.txt"
+  ],
+  "checks": [
+    "single DCC golden sequence, modifiers and native names",
+    "4 batch children equal Core and independently replay",
+    "all 1/2/4/8 presets",
+    "preview/download/copy fallback preserve autosave and history",
+    "full raw Session with explicit mapping",
+    "native result JSON and TXT",
+    "bilingual theme and names without dice consumption",
+    "390px no horizontal overflow",
+    "failed repeated generation preserves previous results with explicit error",
+    "cancel/confirm explicit restore affects only one session",
+    "reload clears batch, retains current session",
+    "current DCC file import performs no random draws"
+  ]
+}

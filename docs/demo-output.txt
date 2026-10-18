@@ -1,0 +1,38 @@
+AD&D 第二版 · 方法 VI：八点基础加七颗骰
+六项从 8 开始，将七颗 d6 的结果逐颗分配。单颗不能拆分，属性不能超过 18。
+STR 18 / DEX 13 / CON 11 / INT 10 / WIS 9 / CHA 14
+基础值: STR 18 / DEX 13 / CON 11 / INT 10 / WIS 9 / CHA 14
+方法选项: {}
+生成次数 1
+a1.d1: 6 → STR
+a1.d2: 4 → STR
+a1.d3: 5 → DEX
+a1.d4: 3 → CON
+a1.d5: 2 → INT
+a1.d6: 1 → WIS
+a1.d7: 6 → CHA
+AD&D 2E Player’s Handbook, Chapter 1: Rolling Ability Scores
+https://adnd2e.fandom.com/wiki/Rolling_Ability_Scores_(PHB)
+这是属性生成结果，不是完整人物卡。
+尚未检验职业、种族条件，未生成卓越力量等后续属性。
+Rules 0.1.0-2026-10-17
+
+--- English ---
+AD&D 2E · Method VI: base eight plus seven dice
+Start all scores at 8; allocate seven rolled d6 whole. No score may exceed 18.
+STR 18 / DEX 13 / CON 11 / INT 10 / WIS 9 / CHA 14
+Base: STR 18 / DEX 13 / CON 11 / INT 10 / WIS 9 / CHA 14
+Options: {}
+Attempt 1
+a1.d1: 6 → STR
+a1.d2: 4 → STR
+a1.d3: 5 → DEX
+a1.d4: 3 → CON
+a1.d5: 2 → INT
+a1.d6: 1 → WIS
+a1.d7: 6 → CHA
+AD&D 2E Player’s Handbook, Chapter 1: Rolling Ability Scores
+https://adnd2e.fandom.com/wiki/Rolling_Ability_Scores_(PHB)
+This is ability generation, not a complete character sheet.
+Class/race eligibility and later steps such as exceptional Strength are not applied.
+Rules 0.1.0-2026-10-17

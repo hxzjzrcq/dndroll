@@ -1,0 +1,115 @@
+From 683d3d4960b9fa843d0f0a0d19c76d1b3587a4e0 Mon Sep 17 00:00:00 2001
+From: DNDROLL Maintenance <maintenance@dndroll.local>
+Date: Sun, 18 Oct 2026 04:56:58 +0300
+Subject: [PATCH 4/7] V3-04: cache history views by immutable Session identity
+ in Web layer
+
+---
+ apps/web/src/App.tsx                     |  4 +--
+ apps/web/src/historyView.ts              | 13 +++++++
+ apps/web/src/test/history-cache.test.tsx | 44 ++++++++++++++++++++++++
+ 3 files changed, 59 insertions(+), 2 deletions(-)
+ create mode 100644 apps/web/src/historyView.ts
+ create mode 100644 apps/web/src/test/history-cache.test.tsx
+
+diff --git a/apps/web/src/App.tsx b/apps/web/src/App.tsx
+index 1fa5bfb..825127f 100644
+--- a/apps/web/src/App.tsx
++++ b/apps/web/src/App.tsx
+@@ -2,7 +2,6 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
+ import {
+   RULES_VERSION,
+   getMethod,
+-  getSessionView,
+   isRandomMethod,
+   formatAbilityScore,
+   listMethods,
+@@ -14,6 +13,7 @@ import {
+   type VersionId,
+ } from '@dndroll/core';
+ import { ExceptionalPanel } from './components/ExceptionalPanel';
++import { getHistoryView } from './historyView';
+ import { HistoryPreview } from './components/HistoryPreview';
+ import { abilityNames, t } from './i18n';
+ import { loadPrefs, savePrefs, useSessionController } from './store';
+@@ -359,7 +359,7 @@ export default function App({ rng }: { rng?: Rng }) {
+               <p className="panel-hint">{t('historyHint', locale)}</p>
+               <div className="history-list">
+                 {[...ctl.history].reverse().map(entry => {
+-                  const hv = getSessionView(entry.session);
++                  const hv = getHistoryView(entry.session);
+                   return <div className="history-entry" key={entry.id}><button type="button"
+                     className={`btn${ctl.activeHistoryId === entry.id ? ' btn-primary' : ''}`}
+                     aria-pressed={ctl.activeHistoryId === entry.id}
+diff --git a/apps/web/src/historyView.ts b/apps/web/src/historyView.ts
+new file mode 100644
+index 0000000..76b98bc
+--- /dev/null
++++ b/apps/web/src/historyView.ts
+@@ -0,0 +1,13 @@
++import { getSessionView, type Session, type SessionView } from '@dndroll/core';
++
++// Sessions are immutable snapshots. New actions produce a new key; removed groups
++// can be collected. Views contain bilingual data, never locale-specific UI text.
++const views = new WeakMap<Session, SessionView>();
++export function getHistoryView(session: Session): SessionView {
++  let view = views.get(session);
++  if (!view) {
++    view = getSessionView(session);
++    views.set(session, view);
++  }
++  return view;
++}
+diff --git a/apps/web/src/test/history-cache.test.tsx b/apps/web/src/test/history-cache.test.tsx
+new file mode 100644
+index 0000000..31ebcbf
+--- /dev/null
++++ b/apps/web/src/test/history-cache.test.tsx
+@@ -0,0 +1,44 @@
++import { fireEvent, render, screen } from '@testing-library/react';
++import { vi } from 'vitest';
++import * as core from '@dndroll/core';
++import { getHistoryView } from '../historyView';
++import { HistoryPreview } from '../components/HistoryPreview';
++import App from '../App';
++
++it('V3-04: unchanged identities replay once, updates invalidate, restoring reuses the old view',()=>{
++  const session=core.applyAction(core.createSession({versionId:'adnd2e',methodId:'adnd2e.phb-VI'}),{type:'roll'},core.sequenceRng([6,5,4,3,2,1,1]));
++  const spy=vi.spyOn(core,'getSessionView');
++  try {
++    const before=JSON.stringify(session);
++    const first=getHistoryView(session);
++    expect(getHistoryView(session)).toBe(first);
++    expect(spy).toHaveBeenCalledTimes(1);
++    const {rerender}=render(<HistoryPreview view={getHistoryView(session)} locale="zh"/>);
++    expect(screen.getByText(/七颗骰/)).toBeTruthy();
++    rerender(<HistoryPreview view={getHistoryView(session)} locale="en"/>);
++    expect(screen.getByText(/Seven dice/)).toBeTruthy();
++    expect(spy).toHaveBeenCalledTimes(1);
++    const updated=core.applyAction(session,{type:'allocateDie',dieId:first.attempt.looseDice[0]!.id,ability:'STR'});
++    expect(getHistoryView(updated).attempt.scores.STR).toBe(14);
++    expect(spy).toHaveBeenCalledTimes(2);
++    expect(getHistoryView(session)).toBe(first);
++    expect(spy).toHaveBeenCalledTimes(2);
++    expect(JSON.stringify(session)).toBe(before);
++  } finally {spy.mockRestore();}
++});
++
++it('V3-04: browsing and language rerenders reuse each history Session',()=>{
++  render(<App rng={core.sequenceRng(Array(60).fill(4))}/>);
++  fireEvent.click(screen.getByRole('button',{name:'AD&D 第二版'}));
++  fireEvent.click(screen.getByRole('button',{name:/^方法 I：/}));
++  fireEvent.click(screen.getByRole('button',{name:'开始生成'}));
++  fireEvent.click(screen.getByRole('button',{name:'掷骰'}));
++  fireEvent.click(screen.getByRole('button',{name:'再掷一组'}));
++  const spy=vi.spyOn(core,'getSessionView');
++  try {
++    fireEvent.click(screen.getByRole('button',{name:'English'}));
++    fireEvent.click(screen.getByRole('button',{name:'D&D 3.5'}));
++    expect(spy).not.toHaveBeenCalled();
++    expect(screen.getByRole('region',{name:'Recent groups'}).textContent).toContain('Current abilities');
++  } finally {spy.mockRestore();}
++});
+-- 
+2.51.1
+

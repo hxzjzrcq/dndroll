@@ -1,0 +1,21 @@
+[package]
+name = "dndroll-desktop"
+version = "0.4.0"
+description = "Offline multi-edition D&D ability generator"
+edition = "2021"
+rust-version = "1.85"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+
+[features]
+custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true

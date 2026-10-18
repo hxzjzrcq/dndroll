@@ -1,0 +1,20 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> dndroll-project@0.3.0 build:web
+> npm run build --workspace apps/web
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @dndroll/web@0.3.0 build
+> vite build && node scripts/build-offline.mjs
+
+vite v5.4.20 building for production...
+transforming...
+✓ 42 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.47 kB │ gzip:  0.33 kB
+dist/assets/index-CfDDzGZG.css   22.29 kB │ gzip:  4.93 kB
+dist/assets/index-BNXOL5pS.js   221.93 kB │ gzip: 74.25 kB
+✓ built in 786ms
+dist-offline/index.html written (238.9 KiB)

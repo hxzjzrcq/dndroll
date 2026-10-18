@@ -1,0 +1,51 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> dndroll-project@0.4.0 test:web
+> npm run test --workspace apps/web
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @dndroll/web@0.4.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /workspace/scratch/a332a702c2b0/work/dndroll/apps/web
+
+ ✓ src/test/display.test.tsx (4 tests) 845ms
+   ✓ 浅深色一键切换并记住偏好，不更改骰值、会话或历史；快速按钮位于工作面板附近 831ms
+ ✓ src/test/ability-name.test.tsx (4 tests) 1086ms
+   ✓ V3-07: adnd2e scores, history, completed result and copied TXT keep the right scope 488ms
+   ✓ V3-07: adnd1e scores, history, completed result and copied TXT keep the right scope 463ms
+ ✓ src/test/quick-roll.test.tsx (29 tests) 1240ms
+   ✓ 界面：连续生成无确认；恢复分配与锁定状态；切语言不重掷且重置面板临时选择 984ms
+ ✓ src/test/maintenance.test.tsx (4 tests) 1354ms
+   ✓ V3-01: real sibling buttons support Tab, Enter and Space without changing Core events 527ms
+   ✓ V3-03: language updates html.lang and dice labels without changing the session 402ms
+   ✓ V3-06: selected cards contain the full bilingual description without starting or replacing a session 392ms
+ ✓ src/test/batch.test.tsx (6 tests) 1921ms
+   ✓ V4-05 batch defaults to four; independent from autosave/history under StrictMode and language changes 827ms
+   ✓ V4-06 preview/copy/raw JSON leave autosave alone; only confirmed use restores one group 436ms
+ ✓ src/test/theme.test.mjs (3 tests) 11ms
+ ✓ src/test/dcc.test.tsx (2 tests) 557ms
+   ✓ V4-02 DCC single-session labels, history and complete result all use native abbreviations 400ms
+ ✓ src/test/history-cache.test.tsx (2 tests) 406ms
+   ✓ V3-04: browsing and language rerenders reuse each history Session 377ms
+ ✓ src/test/flows.test.tsx (18 tests) 4593ms
+   ✓ 普通分配流程（5E 2024 随机生成） > 掷骰 → 点选分配 → 完成锁定 951ms
+   ✓ AD&D 2E 方法 II：每项二选一，允许选较低结果 > 为每项选择低值并完成 357ms
+   ✓ AD&D 1E 方法 IV：十二套整套选择 > 选择一整套后完成 613ms
+   ✓ AD&D 2E 方法 VI：八点基础加七颗骰 > 逐颗分配，超过 18 被拒绝且不破坏状态 600ms
+   ✓ PF1 骰池 28：先分骰再掷 > 配满 28 颗后才能掷骰并完成 351ms
+   ✓ 三种购点成本表 > PF1 购点：负成本降值、超支禁止完成 353ms
+   ✓ 维护回归：存档保护与浏览 > 浏览版本与方法不改存档；取消替换保留进度，确认才建立新会话 395ms
+ ✓ src/test/expansion.test.tsx (5 tests) 6471ms
+   ✓ VII 点满 75 后手动投 d100，历史/切语言不重投，结果显示 18/00 2494ms
+   ✓ VIII 每项最多 6 骰；确认后掷骰，STR 18 自动附加 d100，并可快速生成下一组 325ms
+   ✓ IX 先投预算，再按对应上限购点；再掷一组独立生成预算，历史保留旧预算 965ms
+   ✓ X 传奇力量购买计入同一预算，不提供百分骰按钮，超预算不能锁定 2458ms
+
+ Test Files  10 passed (10)
+      Tests  77 passed (77)
+   Start at  05:17:24
+   Duration  7.58s (transform 637ms, setup 1.12s, collect 2.46s, tests 18.48s, environment 3.82s, prepare 788ms)
+

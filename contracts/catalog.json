@@ -1,0 +1,1848 @@
+[
+  {
+    "id": "odnd1974",
+    "name": {
+      "zh": "OD&D（1974）",
+      "en": "OD&D (1974)"
+    },
+    "order": [
+      "STR",
+      "INT",
+      "WIS",
+      "CON",
+      "DEX",
+      "CHA"
+    ],
+    "abilityMapping": [
+      {
+        "slot": "STR",
+        "id": "STR",
+        "name": {
+          "zh": "力量",
+          "en": "Strength"
+        }
+      },
+      {
+        "slot": "INT",
+        "id": "INT",
+        "name": {
+          "zh": "智力",
+          "en": "Intelligence"
+        }
+      },
+      {
+        "slot": "WIS",
+        "id": "WIS",
+        "name": {
+          "zh": "感知",
+          "en": "Wisdom"
+        }
+      },
+      {
+        "slot": "CON",
+        "id": "CON",
+        "name": {
+          "zh": "体质",
+          "en": "Constitution"
+        }
+      },
+      {
+        "slot": "DEX",
+        "id": "DEX",
+        "name": {
+          "zh": "敏捷",
+          "en": "Dexterity"
+        }
+      },
+      {
+        "slot": "CHA",
+        "id": "CHA",
+        "name": {
+          "zh": "魅力",
+          "en": "Charisma"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "id": "odnd1974.3d6-in-order",
+        "versionId": "odnd1974",
+        "name": {
+          "zh": "三骰依序",
+          "en": "3d6 in order"
+        },
+        "description": {
+          "zh": "依次为 STR、INT、WIS、CON、DEX、CHA 各掷 3d6，结果固定。原始流程由主持人掷骰。",
+          "en": "Roll 3d6 for STR, INT, WIS, CON, DEX, CHA, in that order. The original procedure has the referee roll."
+        },
+        "mode": "fixed",
+        "source": {
+          "title": "Men & Magic (1974)",
+          "location": "pp.10–11",
+          "url": "https://anyflip.com/oahjl/yacw/basic",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "standard",
+        "notes": [
+          {
+            "zh": "仅生成六项基础属性；主属性经验换算尚未应用。",
+            "en": "Generates the six base scores only; prime-requisite XP conversion is not applied."
+          }
+        ],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      }
+    ]
+  },
+  {
+    "id": "bx1981",
+    "name": {
+      "zh": "B/X D&D（1981）",
+      "en": "B/X D&D (1981)"
+    },
+    "order": [
+      "STR",
+      "INT",
+      "WIS",
+      "DEX",
+      "CON",
+      "CHA"
+    ],
+    "abilityMapping": [
+      {
+        "slot": "STR",
+        "id": "STR",
+        "name": {
+          "zh": "力量",
+          "en": "Strength"
+        }
+      },
+      {
+        "slot": "INT",
+        "id": "INT",
+        "name": {
+          "zh": "智力",
+          "en": "Intelligence"
+        }
+      },
+      {
+        "slot": "WIS",
+        "id": "WIS",
+        "name": {
+          "zh": "感知",
+          "en": "Wisdom"
+        }
+      },
+      {
+        "slot": "DEX",
+        "id": "DEX",
+        "name": {
+          "zh": "敏捷",
+          "en": "Dexterity"
+        }
+      },
+      {
+        "slot": "CON",
+        "id": "CON",
+        "name": {
+          "zh": "体质",
+          "en": "Constitution"
+        }
+      },
+      {
+        "slot": "CHA",
+        "id": "CHA",
+        "name": {
+          "zh": "魅力",
+          "en": "Charisma"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "id": "bx1981.3d6-in-order",
+        "versionId": "bx1981",
+        "name": {
+          "zh": "三骰依序",
+          "en": "3d6 in order"
+        },
+        "description": {
+          "zh": "按 STR、INT、WIS、DEX、CON、CHA 各掷 3d6。之后可选职业并按其限制调整主属性。",
+          "en": "Roll 3d6 for STR, INT, WIS, DEX, CON, CHA in order. You may then choose a class and make its permitted prime-requisite exchanges."
+        },
+        "mode": "fixed",
+        "source": {
+          "title": "Moldvay Basic (1981)",
+          "location": "pp.B5–B6, B13",
+          "url": "https://www.americanroads.us/DandD/DnD_Basic_Rules_Moldvay.pdf",
+          "evidence": "indexed-original"
+        },
+        "status": "ready",
+        "category": "standard",
+        "notes": [
+          {
+            "zh": "每次从允许的属性减 2 换主属性加 1；供出属性不低于 9，目标不超过 18。盗贼不能降低 STR。",
+            "en": "Trade 2 eligible donor points for 1 prime-requisite point; donor minimum 9, target maximum 18. Thieves cannot lower STR."
+          },
+          {
+            "zh": "低属性重建须由主持人许可；程序不会自动重掷。",
+            "en": "Replacing a poor character needs referee permission; no automatic rerolls."
+          }
+        ],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      }
+    ]
+  },
+  {
+    "id": "ose-classic",
+    "name": {
+      "zh": "OSE — 经典奇幻",
+      "en": "OSE — Classic Fantasy"
+    },
+    "order": [
+      "STR",
+      "INT",
+      "WIS",
+      "DEX",
+      "CON",
+      "CHA"
+    ],
+    "abilityMapping": [
+      {
+        "slot": "STR",
+        "id": "STR",
+        "name": {
+          "zh": "力量",
+          "en": "Strength"
+        }
+      },
+      {
+        "slot": "INT",
+        "id": "INT",
+        "name": {
+          "zh": "智力",
+          "en": "Intelligence"
+        }
+      },
+      {
+        "slot": "WIS",
+        "id": "WIS",
+        "name": {
+          "zh": "感知",
+          "en": "Wisdom"
+        }
+      },
+      {
+        "slot": "DEX",
+        "id": "DEX",
+        "name": {
+          "zh": "敏捷",
+          "en": "Dexterity"
+        }
+      },
+      {
+        "slot": "CON",
+        "id": "CON",
+        "name": {
+          "zh": "体质",
+          "en": "Constitution"
+        }
+      },
+      {
+        "slot": "CHA",
+        "id": "CHA",
+        "name": {
+          "zh": "魅力",
+          "en": "Charisma"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "id": "ose-classic.3d6-in-order",
+        "versionId": "ose-classic",
+        "name": {
+          "zh": "三骰依序",
+          "en": "3d6 in order"
+        },
+        "description": {
+          "zh": "按 STR、INT、WIS、DEX、CON、CHA 各掷 3d6。之后可选职业并按其限制调整主属性。",
+          "en": "Roll 3d6 for STR, INT, WIS, DEX, CON, CHA in order. You may then choose a class and make its permitted prime-requisite exchanges."
+        },
+        "mode": "fixed",
+        "source": {
+          "title": "OSE Classic / Basic Rules",
+          "location": "Creating a Character; Thief",
+          "url": "https://osesrd.opengamingnetwork.com/player-characters/",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "standard",
+        "notes": [
+          {
+            "zh": "每次从允许的属性减 2 换主属性加 1；供出属性不低于 9，目标不超过 18。盗贼不能降低 STR。",
+            "en": "Trade 2 eligible donor points for 1 prime-requisite point; donor minimum 9, target maximum 18. Thieves cannot lower STR."
+          },
+          {
+            "zh": "低属性重建须由主持人许可；程序不会自动重掷。",
+            "en": "Replacing a poor character needs referee permission; no automatic rerolls."
+          }
+        ],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      }
+    ]
+  },
+  {
+    "id": "adnd1e",
+    "name": {
+      "zh": "AD&D 第一版",
+      "en": "AD&D 1E"
+    },
+    "order": [
+      "STR",
+      "INT",
+      "WIS",
+      "DEX",
+      "CON",
+      "CHA"
+    ],
+    "abilityMapping": [
+      {
+        "slot": "STR",
+        "id": "STR",
+        "name": {
+          "zh": "力量",
+          "en": "Strength"
+        }
+      },
+      {
+        "slot": "INT",
+        "id": "INT",
+        "name": {
+          "zh": "智力",
+          "en": "Intelligence"
+        }
+      },
+      {
+        "slot": "WIS",
+        "id": "WIS",
+        "name": {
+          "zh": "感知",
+          "en": "Wisdom"
+        }
+      },
+      {
+        "slot": "DEX",
+        "id": "DEX",
+        "name": {
+          "zh": "敏捷",
+          "en": "Dexterity"
+        }
+      },
+      {
+        "slot": "CON",
+        "id": "CON",
+        "name": {
+          "zh": "体质",
+          "en": "Constitution"
+        }
+      },
+      {
+        "slot": "CHA",
+        "id": "CHA",
+        "name": {
+          "zh": "魅力",
+          "en": "Charisma"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "id": "adnd1e.dmg-I",
+        "versionId": "adnd1e",
+        "name": {
+          "zh": "方法 I：四骰去最低",
+          "en": "Method I: 4d6, drop lowest"
+        },
+        "description": {
+          "zh": "六次 4d6，各去掉一颗最低骰；总和自由分配。",
+          "en": "Generate six 4d6 totals, dropping one lowest die each time; assign freely."
+        },
+        "mode": "assign",
+        "source": {
+          "title": "AD&D 1E Dungeon Masters Guide",
+          "location": "p.11; reproduced in Dragon, Let the Good Dice Roll",
+          "url": "https://1eonline.info/d/dice.odds.htm",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 4,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "adnd1e.dmg-II",
+        "versionId": "adnd1e",
+        "name": {
+          "zh": "方法 II：十二取最高六个",
+          "en": "Method II: best six of twelve"
+        },
+        "description": {
+          "zh": "掷十二次 3d6，保留最高六个总和，再自由分配。",
+          "en": "Keep the highest six of twelve 3d6 totals; assign freely."
+        },
+        "mode": "best-six",
+        "source": {
+          "title": "AD&D 1E Dungeon Masters Guide",
+          "location": "p.11; reproduced in Dragon, Let the Good Dice Roll",
+          "url": "https://1eonline.info/d/dice.odds.htm",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "adnd1e.dmg-III",
+        "versionId": "adnd1e",
+        "name": {
+          "zh": "方法 III：每项六次取最高",
+          "en": "Method III: best of six per ability"
+        },
+        "description": {
+          "zh": "每项属性掷六次 3d6，取该项最高总和；属性固定。",
+          "en": "For each fixed ability, keep the highest of six 3d6 totals."
+        },
+        "mode": "best-per-ability",
+        "source": {
+          "title": "AD&D 1E Dungeon Masters Guide",
+          "location": "p.11; reproduced in Dragon, Let the Good Dice Roll",
+          "url": "https://1eonline.info/d/dice.odds.htm",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "adnd1e.dmg-IV",
+        "versionId": "adnd1e",
+        "name": {
+          "zh": "方法 IV：十二套选一",
+          "en": "Method IV: one of twelve characters"
+        },
+        "description": {
+          "zh": "生成十二套依序的六项 3d6 属性，选择完整的一套，不能跨套拼接。",
+          "en": "Generate twelve in-order 3d6 characters; choose one intact set."
+        },
+        "mode": "sets",
+        "source": {
+          "title": "AD&D 1E Dungeon Masters Guide",
+          "location": "p.11; reproduced in Dragon, Let the Good Dice Roll",
+          "url": "https://1eonline.info/d/dice.odds.htm",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "adnd1e.ua-V",
+        "versionId": "adnd1e",
+        "name": {
+          "zh": "UA 方法 V：职业骰池（待核准）",
+          "en": "UA Method V: class pools (pending)"
+        },
+        "description": {
+          "zh": "限人类，按职业表掷骰并取最高三颗，再处理职业上下限和容貌。完整限制核准前不可使用。",
+          "en": "Human-only class dice pools, keeping the highest three; class limits and Comeliness apply. Unavailable until full constraints are verified."
+        },
+        "mode": "pending",
+        "source": {
+          "title": "AD&D Unearthed Arcana",
+          "location": "pp.6, 14–18, 74",
+          "url": "https://donperkins.net/dnd/books/Unearthed_Arcana.pdf",
+          "evidence": "indexed-original"
+        },
+        "status": "pending",
+        "category": "official-option",
+        "notes": [
+          {
+            "zh": "骰数表已取得；完整职业限制与特殊步骤仍待核准。",
+            "en": "Dice counts located; full class constraints and special steps remain under review."
+          }
+        ],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      }
+    ]
+  },
+  {
+    "id": "adnd2e",
+    "name": {
+      "zh": "AD&D 第二版",
+      "en": "AD&D 2E"
+    },
+    "order": [
+      "STR",
+      "DEX",
+      "CON",
+      "INT",
+      "WIS",
+      "CHA"
+    ],
+    "abilityMapping": [
+      {
+        "slot": "STR",
+        "id": "STR",
+        "name": {
+          "zh": "力量",
+          "en": "Strength"
+        }
+      },
+      {
+        "slot": "DEX",
+        "id": "DEX",
+        "name": {
+          "zh": "敏捷",
+          "en": "Dexterity"
+        }
+      },
+      {
+        "slot": "CON",
+        "id": "CON",
+        "name": {
+          "zh": "体质",
+          "en": "Constitution"
+        }
+      },
+      {
+        "slot": "INT",
+        "id": "INT",
+        "name": {
+          "zh": "智力",
+          "en": "Intelligence"
+        }
+      },
+      {
+        "slot": "WIS",
+        "id": "WIS",
+        "name": {
+          "zh": "灵知",
+          "en": "Wisdom"
+        }
+      },
+      {
+        "slot": "CHA",
+        "id": "CHA",
+        "name": {
+          "zh": "魅力",
+          "en": "Charisma"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "id": "adnd2e.phb-I",
+        "versionId": "adnd2e",
+        "name": {
+          "zh": "方法 I：三骰依序",
+          "en": "Method I: 3d6 in order"
+        },
+        "description": {
+          "zh": "按 STR、DEX、CON、INT、WIS、CHA 各掷 3d6。",
+          "en": "Roll 3d6 in order: STR, DEX, CON, INT, WIS, CHA."
+        },
+        "mode": "fixed",
+        "source": {
+          "title": "AD&D 2E Player’s Handbook",
+          "location": "Chapter 1: Rolling Ability Scores",
+          "url": "https://adnd2e.fandom.com/wiki/Rolling_Ability_Scores_(PHB)",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "standard",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "adnd2e.phb-II",
+        "versionId": "adnd2e",
+        "name": {
+          "zh": "方法 II：每项两次择一",
+          "en": "Method II: choose from two per ability"
+        },
+        "description": {
+          "zh": "每项掷两次 3d6，任选一个结果；属性位置固定。",
+          "en": "For each fixed ability, choose either of two 3d6 totals."
+        },
+        "mode": "pairs",
+        "source": {
+          "title": "AD&D 2E Player’s Handbook",
+          "location": "Chapter 1: Rolling Ability Scores",
+          "url": "https://adnd2e.fandom.com/wiki/Rolling_Ability_Scores_(PHB)",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "adnd2e.phb-III",
+        "versionId": "adnd2e",
+        "name": {
+          "zh": "方法 III：三骰自由分配",
+          "en": "Method III: assign six 3d6 totals"
+        },
+        "description": {
+          "zh": "掷六次 3d6，自由分配给六项属性。",
+          "en": "Roll six 3d6 totals and assign freely."
+        },
+        "mode": "assign",
+        "source": {
+          "title": "AD&D 2E Player’s Handbook",
+          "location": "Chapter 1: Rolling Ability Scores",
+          "url": "https://adnd2e.fandom.com/wiki/Rolling_Ability_Scores_(PHB)",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "adnd2e.phb-IV",
+        "versionId": "adnd2e",
+        "name": {
+          "zh": "方法 IV：十二次任选六个",
+          "en": "Method IV: choose six of twelve"
+        },
+        "description": {
+          "zh": "掷十二次 3d6，任选六个结果并自由分配；可以选择低值。",
+          "en": "Choose any six of twelve 3d6 totals and assign freely, including lower results."
+        },
+        "mode": "assign",
+        "source": {
+          "title": "AD&D 2E Player’s Handbook",
+          "location": "Chapter 1: Rolling Ability Scores",
+          "url": "https://adnd2e.fandom.com/wiki/Rolling_Ability_Scores_(PHB)",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "adnd2e.phb-V",
+        "versionId": "adnd2e",
+        "name": {
+          "zh": "方法 V：四骰去最低",
+          "en": "Method V: 4d6, drop lowest"
+        },
+        "description": {
+          "zh": "六次 4d6，各去一颗最低骰；总和自由分配。",
+          "en": "Generate six 4d6 totals, dropping one lowest die each time; assign freely."
+        },
+        "mode": "assign",
+        "source": {
+          "title": "AD&D 2E Player’s Handbook",
+          "location": "Chapter 1: Rolling Ability Scores",
+          "url": "https://adnd2e.fandom.com/wiki/Rolling_Ability_Scores_(PHB)",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 4,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "adnd2e.phb-VI",
+        "versionId": "adnd2e",
+        "name": {
+          "zh": "方法 VI：八点基础加七颗骰",
+          "en": "Method VI: base eight plus seven dice"
+        },
+        "description": {
+          "zh": "六项从 8 开始，将七颗 d6 的结果逐颗分配。单颗不能拆分，属性不能超过 18。",
+          "en": "Start all scores at 8; allocate seven rolled d6 whole. No score may exceed 18."
+        },
+        "mode": "allocate",
+        "source": {
+          "title": "AD&D 2E Player’s Handbook",
+          "location": "Chapter 1: Rolling Ability Scores",
+          "url": "https://adnd2e.fandom.com/wiki/Rolling_Ability_Scores_(PHB)",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 1,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "adnd2e.sp-VII",
+        "versionId": "adnd2e",
+        "name": {
+          "zh": "方法 VII：75 点分配",
+          "en": "Method VII: 75-point allocation"
+        },
+        "description": {
+          "zh": "将 75 点直接分配给六项属性，每项 3–18，总和必须为 75。STR 18 时点击投传奇力量。",
+          "en": "Distribute exactly 75 points among six scores, each 3–18. Click to roll exceptional Strength at STR 18."
+        },
+        "mode": "buy",
+        "source": {
+          "title": "AD&D 2E Player’s Option: Skills & Powers",
+          "location": "pp.8–9; Character Generation (Methods VII–X)",
+          "url": "https://regalgoblins.com/2erules/SP/DD02864.htm",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [
+          75
+        ],
+        "defaultBudget": 75,
+        "costs": {
+          "3": 3,
+          "4": 4,
+          "5": 5,
+          "6": 6,
+          "7": 7,
+          "8": 8,
+          "9": 9,
+          "10": 10,
+          "11": 11,
+          "12": 12,
+          "13": 13,
+          "14": 14,
+          "15": 15,
+          "16": 16,
+          "17": 17,
+          "18": 18
+        },
+        "base": 3,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "adnd2e.sp-VIII",
+        "versionId": "adnd2e",
+        "name": {
+          "zh": "方法 VIII：24d6 骰池",
+          "en": "Method VIII: 24d6 dice pool"
+        },
+        "description": {
+          "zh": "掷骰前分配 24 颗 d6，每项 3–6 颗，取各项最高三颗相加。",
+          "en": "Allocate 24d6 before rolling, 3–6 dice per ability, and sum the highest three for each."
+        },
+        "mode": "pool",
+        "source": {
+          "title": "AD&D 2E Player’s Option: Skills & Powers",
+          "location": "pp.8–9; Character Generation (Methods VII–X)",
+          "url": "https://regalgoblins.com/2erules/SP/DD02864.htm",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": [
+          24
+        ],
+        "poolMax": 6
+      },
+      {
+        "id": "adnd2e.sp-IX",
+        "versionId": "adnd2e",
+        "name": {
+          "zh": "方法 IX：随机预算分配",
+          "en": "Method IX: random point allocation"
+        },
+        "description": {
+          "zh": "先投 2d6 查表取得 68–80 点预算及 15–18 的单项上限，再直接分配全部点数，每项至少 3。STR 18 时点击投传奇力量。",
+          "en": "Roll 2d6 for a 68–80 point budget and a 15–18 score cap, then distribute all points, minimum 3 per score. Click to roll exceptional Strength at STR 18."
+        },
+        "mode": "buy",
+        "source": {
+          "title": "AD&D 2E Player’s Option: Skills & Powers",
+          "location": "pp.8–9; Character Generation (Methods VII–X)",
+          "url": "https://regalgoblins.com/2erules/SP/DD02864.htm",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {
+          "3": 3,
+          "4": 4,
+          "5": 5,
+          "6": 6,
+          "7": 7,
+          "8": 8,
+          "9": 9,
+          "10": 10,
+          "11": 11,
+          "12": 12,
+          "13": 13,
+          "14": 14,
+          "15": 15,
+          "16": 16,
+          "17": 17,
+          "18": 18
+        },
+        "base": 3,
+        "canChooseOrder": false,
+        "poolTotals": [],
+        "randomBudget": true
+      },
+      {
+        "id": "adnd2e.sp-X",
+        "versionId": "adnd2e",
+        "name": {
+          "zh": "方法 X：75 点含传奇力量购买",
+          "en": "Method X: 75 points including exceptional Strength"
+        },
+        "description": {
+          "zh": "将 75 点直接分配，每项 3–18；STR 18 后每额外 1 点购买 10% 传奇力量。18/30 共花 21 点，18/00 共花 28 点。",
+          "en": "Distribute exactly 75 points, each score 3–18. At STR 18, each extra point buys 10 exceptional Strength percentage points: 18/30 costs 21 and 18/00 costs 28."
+        },
+        "mode": "buy",
+        "source": {
+          "title": "AD&D 2E Player’s Option: Skills & Powers",
+          "location": "pp.8–9; Character Generation (Methods VII–X)",
+          "url": "https://regalgoblins.com/2erules/SP/DD02864.htm",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [
+          75
+        ],
+        "defaultBudget": 75,
+        "costs": {
+          "3": 3,
+          "4": 4,
+          "5": 5,
+          "6": 6,
+          "7": 7,
+          "8": 8,
+          "9": 9,
+          "10": 10,
+          "11": 11,
+          "12": 12,
+          "13": 13,
+          "14": 14,
+          "15": 15,
+          "16": 16,
+          "17": 17,
+          "18": 18
+        },
+        "base": 3,
+        "canChooseOrder": false,
+        "poolTotals": []
+      }
+    ]
+  },
+  {
+    "id": "dnd35",
+    "name": {
+      "zh": "D&D 3.5",
+      "en": "D&D 3.5"
+    },
+    "order": [
+      "STR",
+      "DEX",
+      "CON",
+      "INT",
+      "WIS",
+      "CHA"
+    ],
+    "abilityMapping": [
+      {
+        "slot": "STR",
+        "id": "STR",
+        "name": {
+          "zh": "力量",
+          "en": "Strength"
+        }
+      },
+      {
+        "slot": "DEX",
+        "id": "DEX",
+        "name": {
+          "zh": "敏捷",
+          "en": "Dexterity"
+        }
+      },
+      {
+        "slot": "CON",
+        "id": "CON",
+        "name": {
+          "zh": "体质",
+          "en": "Constitution"
+        }
+      },
+      {
+        "slot": "INT",
+        "id": "INT",
+        "name": {
+          "zh": "智力",
+          "en": "Intelligence"
+        }
+      },
+      {
+        "slot": "WIS",
+        "id": "WIS",
+        "name": {
+          "zh": "感知",
+          "en": "Wisdom"
+        }
+      },
+      {
+        "slot": "CHA",
+        "id": "CHA",
+        "name": {
+          "zh": "魅力",
+          "en": "Charisma"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "id": "dnd35.phb-roll",
+        "versionId": "dnd35",
+        "name": {
+          "zh": "标准随机生成",
+          "en": "Standard random generation"
+        },
+        "description": {
+          "zh": "六次 4d6 去最低，自由分配。种族调整前，调整值总和≤0 或最高属性≤13 时，可重掷整组。",
+          "en": "Assign six 4d6-drop-lowest totals. Before racial changes, a modifier sum ≤0 or highest score ≤13 permits a whole-set reroll."
+        },
+        "mode": "assign",
+        "source": {
+          "title": "D&D 3.5 Player’s Handbook",
+          "location": "pp.7–8, Ability Scores / Rerolling",
+          "url": "https://studylib.net/doc/18263338/3.5-player-s-handbook",
+          "evidence": "transcription"
+        },
+        "status": "ready",
+        "category": "standard",
+        "notes": [],
+        "diceCount": 4,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "dnd35.dmg-point-buy",
+        "versionId": "dnd35",
+        "name": {
+          "zh": "购点",
+          "en": "Point buy"
+        },
+        "description": {
+          "zh": "六项从 8 开始，按 3.5 表购买到最高 18；标准 25 点，另有 15/22/28/32 点。",
+          "en": "Start at 8; buy up to 18 using 3.5 costs. Standard budget 25; alternatives 15/22/28/32."
+        },
+        "mode": "buy",
+        "source": {
+          "title": "D&D 3.5 Dungeon Master’s Guide",
+          "location": "pp.169–170",
+          "url": "https://anyflip.com/smqdp/kmty/basic/151-200",
+          "evidence": "indexed-original"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [
+          15,
+          22,
+          25,
+          28,
+          32
+        ],
+        "defaultBudget": 25,
+        "costs": {
+          "8": 0,
+          "9": 1,
+          "10": 2,
+          "11": 3,
+          "12": 4,
+          "13": 5,
+          "14": 6,
+          "15": 8,
+          "16": 10,
+          "17": 13,
+          "18": 16
+        },
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "dnd35.dmg-elite-array",
+        "versionId": "dnd35",
+        "name": {
+          "zh": "精英数组",
+          "en": "Elite array"
+        },
+        "description": {
+          "zh": "将 15、14、13、12、10、8 分配给六项属性，不掷骰。",
+          "en": "Assign 15, 14, 13, 12, 10, 8 to the six abilities without rolling."
+        },
+        "mode": "array",
+        "source": {
+          "title": "D&D 3.5 Dungeon Master’s Guide",
+          "location": "pp.169–170",
+          "url": "https://anyflip.com/smqdp/kmty/basic/151-200",
+          "evidence": "indexed-original"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      }
+    ]
+  },
+  {
+    "id": "pf1",
+    "name": {
+      "zh": "Pathfinder 第一版",
+      "en": "Pathfinder 1E"
+    },
+    "order": [
+      "STR",
+      "DEX",
+      "CON",
+      "INT",
+      "WIS",
+      "CHA"
+    ],
+    "abilityMapping": [
+      {
+        "slot": "STR",
+        "id": "STR",
+        "name": {
+          "zh": "力量",
+          "en": "Strength"
+        }
+      },
+      {
+        "slot": "DEX",
+        "id": "DEX",
+        "name": {
+          "zh": "敏捷",
+          "en": "Dexterity"
+        }
+      },
+      {
+        "slot": "CON",
+        "id": "CON",
+        "name": {
+          "zh": "体质",
+          "en": "Constitution"
+        }
+      },
+      {
+        "slot": "INT",
+        "id": "INT",
+        "name": {
+          "zh": "智力",
+          "en": "Intelligence"
+        }
+      },
+      {
+        "slot": "WIS",
+        "id": "WIS",
+        "name": {
+          "zh": "感知",
+          "en": "Wisdom"
+        }
+      },
+      {
+        "slot": "CHA",
+        "id": "CHA",
+        "name": {
+          "zh": "魅力",
+          "en": "Charisma"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "id": "pf1.standard",
+        "versionId": "pf1",
+        "name": {
+          "zh": "标准",
+          "en": "Standard"
+        },
+        "description": {
+          "zh": "六次 4d6，各去一颗最低骰，总和自由分配。",
+          "en": "Assign six 4d6 totals with one lowest die removed from each."
+        },
+        "mode": "assign",
+        "source": {
+          "title": "Pathfinder Core Rulebook",
+          "location": "Generating Ability Scores",
+          "url": "https://legacy.aonprd.com/corerulebook/gettingStarted.html",
+          "evidence": "official-web"
+        },
+        "status": "ready",
+        "category": "standard",
+        "notes": [],
+        "diceCount": 4,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "pf1.classic",
+        "versionId": "pf1",
+        "name": {
+          "zh": "经典",
+          "en": "Classic"
+        },
+        "description": {
+          "zh": "六次 3d6，自由分配；也可在开始前选择依序填写。",
+          "en": "Generate six 3d6 totals; assign freely or choose in-order generation before starting."
+        },
+        "mode": "assign",
+        "source": {
+          "title": "Pathfinder Core Rulebook",
+          "location": "Generating Ability Scores",
+          "url": "https://legacy.aonprd.com/corerulebook/gettingStarted.html",
+          "evidence": "official-web"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": true,
+        "poolTotals": []
+      },
+      {
+        "id": "pf1.heroic",
+        "versionId": "pf1",
+        "name": {
+          "zh": "英雄",
+          "en": "Heroic"
+        },
+        "description": {
+          "zh": "掷六组 2d6+6，总和自由分配。",
+          "en": "Generate six 2d6+6 totals and assign freely."
+        },
+        "mode": "assign",
+        "source": {
+          "title": "Pathfinder Core Rulebook",
+          "location": "Generating Ability Scores",
+          "url": "https://legacy.aonprd.com/corerulebook/gettingStarted.html",
+          "evidence": "official-web"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 2,
+        "keep": 2,
+        "bonus": 6,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "pf1.dice-pool",
+        "versionId": "pf1",
+        "name": {
+          "zh": "骰池",
+          "en": "Dice Pool"
+        },
+        "description": {
+          "zh": "掷骰前分配 24 颗 d6，每项至少三颗；各项取最高三颗。高强度选项为 28 颗。",
+          "en": "Allocate 24 d6 before rolling, at least three per ability; retain each ability’s highest three. Higher-powered option: 28 dice."
+        },
+        "mode": "pool",
+        "source": {
+          "title": "Pathfinder Core Rulebook",
+          "location": "Generating Ability Scores",
+          "url": "https://legacy.aonprd.com/corerulebook/gettingStarted.html",
+          "evidence": "official-web"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": [
+          24,
+          28
+        ]
+      },
+      {
+        "id": "pf1.purchase",
+        "versionId": "pf1",
+        "name": {
+          "zh": "购点",
+          "en": "Purchase"
+        },
+        "description": {
+          "zh": "从 10 开始，按 PF1 成本增减至 7–18；预算 10/15/20/25 点，标准 15 点。",
+          "en": "Start at 10; purchase or lower scores within 7–18 using PF1 costs. Budgets 10/15/20/25; standard 15."
+        },
+        "mode": "buy",
+        "source": {
+          "title": "Pathfinder Core Rulebook",
+          "location": "Generating Ability Scores",
+          "url": "https://legacy.aonprd.com/corerulebook/gettingStarted.html",
+          "evidence": "official-web"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [
+          10,
+          15,
+          20,
+          25
+        ],
+        "defaultBudget": 15,
+        "costs": {
+          "7": -4,
+          "8": -2,
+          "9": -1,
+          "10": 0,
+          "11": 1,
+          "12": 2,
+          "13": 3,
+          "14": 5,
+          "15": 7,
+          "16": 10,
+          "17": 13,
+          "18": 17
+        },
+        "base": 10,
+        "canChooseOrder": false,
+        "poolTotals": []
+      }
+    ]
+  },
+  {
+    "id": "dnd5e2014",
+    "name": {
+      "zh": "D&D 5E（2014）",
+      "en": "D&D 5E (2014)"
+    },
+    "order": [
+      "STR",
+      "DEX",
+      "CON",
+      "INT",
+      "WIS",
+      "CHA"
+    ],
+    "abilityMapping": [
+      {
+        "slot": "STR",
+        "id": "STR",
+        "name": {
+          "zh": "力量",
+          "en": "Strength"
+        }
+      },
+      {
+        "slot": "DEX",
+        "id": "DEX",
+        "name": {
+          "zh": "敏捷",
+          "en": "Dexterity"
+        }
+      },
+      {
+        "slot": "CON",
+        "id": "CON",
+        "name": {
+          "zh": "体质",
+          "en": "Constitution"
+        }
+      },
+      {
+        "slot": "INT",
+        "id": "INT",
+        "name": {
+          "zh": "智力",
+          "en": "Intelligence"
+        }
+      },
+      {
+        "slot": "WIS",
+        "id": "WIS",
+        "name": {
+          "zh": "感知",
+          "en": "Wisdom"
+        }
+      },
+      {
+        "slot": "CHA",
+        "id": "CHA",
+        "name": {
+          "zh": "魅力",
+          "en": "Charisma"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "id": "dnd5e2014.roll",
+        "versionId": "dnd5e2014",
+        "name": {
+          "zh": "随机生成",
+          "en": "Random generation"
+        },
+        "description": {
+          "zh": "六次 4d6，各取最高三颗相加；总和自由分配。没有默认低值重掷条件。",
+          "en": "Assign six totals from the highest three of four d6. No default low-score reroll rule."
+        },
+        "mode": "assign",
+        "source": {
+          "title": "D&D Basic Rules (2014)",
+          "location": "Determine Ability Scores",
+          "url": "https://www.dndbeyond.com/sources/dnd/basic-rules-2014/step-by-step-characters",
+          "evidence": "official-web"
+        },
+        "status": "ready",
+        "category": "standard",
+        "notes": [],
+        "diceCount": 4,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "dnd5e2014.array",
+        "versionId": "dnd5e2014",
+        "name": {
+          "zh": "标准数组",
+          "en": "Standard array"
+        },
+        "description": {
+          "zh": "将 15、14、13、12、10、8 分配给六项属性。",
+          "en": "Assign 15, 14, 13, 12, 10, 8 to the six abilities."
+        },
+        "mode": "array",
+        "source": {
+          "title": "D&D Basic Rules (2014)",
+          "location": "Determine Ability Scores",
+          "url": "https://www.dndbeyond.com/sources/dnd/basic-rules-2014/step-by-step-characters",
+          "evidence": "official-web"
+        },
+        "status": "ready",
+        "category": "standard",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "dnd5e2014.point-buy",
+        "versionId": "dnd5e2014",
+        "name": {
+          "zh": "27 点购点",
+          "en": "27-point buy"
+        },
+        "description": {
+          "zh": "按 5E 成本表购买六项基础属性，范围 8–15，共 27 点。",
+          "en": "Spend 27 points using 5E costs; each base score must be 8–15."
+        },
+        "mode": "buy",
+        "source": {
+          "title": "D&D Basic Rules (2014)",
+          "location": "Determine Ability Scores",
+          "url": "https://www.dndbeyond.com/sources/dnd/basic-rules-2014/step-by-step-characters",
+          "evidence": "official-web"
+        },
+        "status": "ready",
+        "category": "official-option",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [
+          27
+        ],
+        "defaultBudget": 27,
+        "costs": {
+          "8": 0,
+          "9": 1,
+          "10": 2,
+          "11": 3,
+          "12": 4,
+          "13": 5,
+          "14": 7,
+          "15": 9
+        },
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      }
+    ]
+  },
+  {
+    "id": "dcc",
+    "name": {
+      "zh": "Dungeon Crawl Classics（DCC）",
+      "en": "Dungeon Crawl Classics (DCC)"
+    },
+    "order": [
+      "STR",
+      "DEX",
+      "CON",
+      "WIS",
+      "INT",
+      "CHA"
+    ],
+    "abilityMapping": [
+      {
+        "slot": "STR",
+        "id": "STR",
+        "name": {
+          "zh": "力量",
+          "en": "Strength"
+        }
+      },
+      {
+        "slot": "DEX",
+        "id": "AGI",
+        "name": {
+          "zh": "敏捷",
+          "en": "Agility"
+        }
+      },
+      {
+        "slot": "CON",
+        "id": "STA",
+        "name": {
+          "zh": "耐力",
+          "en": "Stamina"
+        }
+      },
+      {
+        "slot": "WIS",
+        "id": "PER",
+        "name": {
+          "zh": "人格",
+          "en": "Personality"
+        }
+      },
+      {
+        "slot": "INT",
+        "id": "INT",
+        "name": {
+          "zh": "智力",
+          "en": "Intelligence"
+        }
+      },
+      {
+        "slot": "CHA",
+        "id": "LCK",
+        "name": {
+          "zh": "幸运",
+          "en": "Luck"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "id": "dcc.3d6-in-order",
+        "versionId": "dcc",
+        "name": {
+          "zh": "3d6 顺序生成",
+          "en": "3d6 in order"
+        },
+        "description": {
+          "zh": "按 STR（力量）、AGI（敏捷）、STA（耐力）、PER（人格）、INT（智力）、LCK（幸运）依次各掷 3d6，保留全部骰子，不交换结果。仅生成六属性及调整值，不是完整零级人物卡。",
+          "en": "Roll 3d6 in order for STR (Strength), AGI (Agility), STA (Stamina), PER (Personality), INT (Intelligence), LCK (Luck). Keep all dice; no swapping. Generates abilities and modifiers only, not a complete level-0 character."
+        },
+        "mode": "fixed",
+        "source": {
+          "title": "Dungeon Crawl Classics RPG Quick Start Guide (June 2011)",
+          "location": "p.2, Ability Scores / Table 1-1",
+          "url": "https://www.goodman-games.com/downloads/DCCRPGQuickStartGuide060811.pdf",
+          "evidence": "official-web"
+        },
+        "status": "ready",
+        "category": "standard",
+        "notes": [
+          {
+            "zh": "不生成职业、出身、生命值、钱币、装备或幸运征兆。",
+            "en": "Does not generate class, occupation, hit points, money, equipment or birth augur."
+          }
+        ],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      }
+    ]
+  },
+  {
+    "id": "dnd5e2024",
+    "name": {
+      "zh": "D&D 5E（2024）",
+      "en": "D&D 5E (2024)"
+    },
+    "order": [
+      "STR",
+      "DEX",
+      "CON",
+      "INT",
+      "WIS",
+      "CHA"
+    ],
+    "abilityMapping": [
+      {
+        "slot": "STR",
+        "id": "STR",
+        "name": {
+          "zh": "力量",
+          "en": "Strength"
+        }
+      },
+      {
+        "slot": "DEX",
+        "id": "DEX",
+        "name": {
+          "zh": "敏捷",
+          "en": "Dexterity"
+        }
+      },
+      {
+        "slot": "CON",
+        "id": "CON",
+        "name": {
+          "zh": "体质",
+          "en": "Constitution"
+        }
+      },
+      {
+        "slot": "INT",
+        "id": "INT",
+        "name": {
+          "zh": "智力",
+          "en": "Intelligence"
+        }
+      },
+      {
+        "slot": "WIS",
+        "id": "WIS",
+        "name": {
+          "zh": "感知",
+          "en": "Wisdom"
+        }
+      },
+      {
+        "slot": "CHA",
+        "id": "CHA",
+        "name": {
+          "zh": "魅力",
+          "en": "Charisma"
+        }
+      }
+    ],
+    "methods": [
+      {
+        "id": "dnd5e2024.roll",
+        "versionId": "dnd5e2024",
+        "name": {
+          "zh": "随机生成",
+          "en": "Random generation"
+        },
+        "description": {
+          "zh": "六次 4d6，各取最高三颗相加；总和自由分配。没有默认低值重掷条件。",
+          "en": "Assign six totals from the highest three of four d6. No default low-score reroll rule."
+        },
+        "mode": "assign",
+        "source": {
+          "title": "D&D Free Rules (2024)",
+          "location": "Step 3: Determine Ability Scores",
+          "url": "https://www.dndbeyond.com/sources/dnd/br-2024/creating-a-character",
+          "evidence": "official-web"
+        },
+        "status": "ready",
+        "category": "standard",
+        "notes": [],
+        "diceCount": 4,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "dnd5e2024.array",
+        "versionId": "dnd5e2024",
+        "name": {
+          "zh": "标准数组",
+          "en": "Standard array"
+        },
+        "description": {
+          "zh": "将 15、14、13、12、10、8 分配给六项属性。",
+          "en": "Assign 15, 14, 13, 12, 10, 8 to the six abilities."
+        },
+        "mode": "array",
+        "source": {
+          "title": "D&D Free Rules (2024)",
+          "location": "Step 3: Determine Ability Scores",
+          "url": "https://www.dndbeyond.com/sources/dnd/br-2024/creating-a-character",
+          "evidence": "official-web"
+        },
+        "status": "ready",
+        "category": "standard",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [],
+        "defaultBudget": null,
+        "costs": {},
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      },
+      {
+        "id": "dnd5e2024.point-buy",
+        "versionId": "dnd5e2024",
+        "name": {
+          "zh": "27 点购点",
+          "en": "27-point buy"
+        },
+        "description": {
+          "zh": "按 5E 成本表购买六项基础属性，范围 8–15，共 27 点。",
+          "en": "Spend 27 points using 5E costs; each base score must be 8–15."
+        },
+        "mode": "buy",
+        "source": {
+          "title": "D&D Free Rules (2024)",
+          "location": "Step 3: Determine Ability Scores",
+          "url": "https://www.dndbeyond.com/sources/dnd/br-2024/creating-a-character",
+          "evidence": "official-web"
+        },
+        "status": "ready",
+        "category": "standard",
+        "notes": [],
+        "diceCount": 3,
+        "keep": 3,
+        "bonus": 0,
+        "budgets": [
+          27
+        ],
+        "defaultBudget": 27,
+        "costs": {
+          "8": 0,
+          "9": 1,
+          "10": 2,
+          "11": 3,
+          "12": 4,
+          "13": 5,
+          "14": 7,
+          "15": 9
+        },
+        "base": 8,
+        "canChooseOrder": false,
+        "poolTotals": []
+      }
+    ]
+  }
+]

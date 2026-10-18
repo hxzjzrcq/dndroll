@@ -1,0 +1,20 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @dndroll/web@0.2.0 test
+> vitest run src/test/maintenance.test.tsx src/test/flows.test.tsx
+
+
+ RUN  v2.1.9 /workspace/scratch/a332a702c2b0/work/dndroll/apps/web
+
+ ✓ src/test/maintenance.test.tsx (1 test) 228ms
+ ✓ src/test/flows.test.tsx (18 tests) 3400ms
+   ✓ 普通分配流程（5E 2024 随机生成） > 掷骰 → 点选分配 → 完成锁定 462ms
+   ✓ AD&D 1E 方法 IV：十二套整套选择 > 选择一整套后完成 373ms
+   ✓ AD&D 2E 方法 VI：八点基础加七颗骰 > 逐颗分配，超过 18 被拒绝且不破坏状态 489ms
+   ✓ 维护回归：存档保护与浏览 > 浏览版本与方法不改存档；取消替换保留进度，确认才建立新会话 401ms
+
+ Test Files  2 passed (2)
+      Tests  19 passed (19)
+   Start at  04:54:08
+   Duration  4.14s (transform 203ms, setup 151ms, collect 327ms, tests 3.63s, environment 544ms, prepare 100ms)
+

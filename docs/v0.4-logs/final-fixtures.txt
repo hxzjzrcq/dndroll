@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> dndroll-project@0.4.0 fixtures
+> node scripts/fixtures.mjs
+
+Wrote 17 real engine snapshots and the bilingual catalog.

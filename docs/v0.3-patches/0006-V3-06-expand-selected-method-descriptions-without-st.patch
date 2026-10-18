@@ -1,0 +1,59 @@
+From f645591c8437b1dc2d3821d4fce37d716e534b91 Mon Sep 17 00:00:00 2001
+From: DNDROLL Maintenance <maintenance@dndroll.local>
+Date: Sun, 18 Oct 2026 04:57:31 +0300
+Subject: [PATCH 6/7] V3-06: expand selected method descriptions without
+ starting sessions
+
+---
+ apps/web/src/styles.css                |  6 ++++++
+ apps/web/src/test/maintenance.test.tsx | 20 ++++++++++++++++++++
+ 2 files changed, 26 insertions(+)
+
+diff --git a/apps/web/src/styles.css b/apps/web/src/styles.css
+index 420d871..dad06ca 100644
+--- a/apps/web/src/styles.css
++++ b/apps/web/src/styles.css
+@@ -304,6 +304,12 @@ summary:focus-visible {
+   overflow: hidden;
+ }
+ 
++.method-card.active .method-desc {
++  display: block;
++  -webkit-line-clamp: unset;
++  overflow: visible;
++}
++
+ .method-pending-note {
+   font-size: 12px;
+   color: var(--danger);
+diff --git a/apps/web/src/test/maintenance.test.tsx b/apps/web/src/test/maintenance.test.tsx
+index 5e2c61d..0ae42fb 100644
+--- a/apps/web/src/test/maintenance.test.tsx
++++ b/apps/web/src/test/maintenance.test.tsx
+@@ -66,3 +66,23 @@ it('V3-03: language updates html.lang and dice labels without changing the sessi
+   expect(document.documentElement.lang).toBe('zh-CN');
+   expect(localStorage.getItem('dndroll.session.v1')).toBe(saved);
+ });
++
++it('V3-06: selected cards contain the full bilingual description without starting or replacing a session',()=>{
++  render(<App rng={sequenceRng(Array(18).fill(4))}/>);
++  fireEvent.click(screen.getByRole('button',{name:'AD&D 第二版'}));
++  fireEvent.click(screen.getByRole('button',{name:/^方法 IX：/}));
++  expect(document.querySelector('.method-card.active .method-desc')?.textContent).toBe(getSessionView(createSession({versionId:'adnd2e',methodId:'adnd2e.sp-IX'})).method.description.zh);
++  expect(localStorage.getItem('dndroll.session.v1')).toBeNull();
++  fireEvent.click(screen.getByRole('button',{name:/^方法 I：/}));
++  fireEvent.click(screen.getByRole('button',{name:'开始生成'}));
++  fireEvent.click(screen.getByRole('button',{name:'掷骰'}));
++  const saved=localStorage.getItem('dndroll.session.v1');
++  fireEvent.click(screen.getByRole('button',{name:/^方法 IX：/}));
++  fireEvent.click(screen.getByRole('button',{name:'English'}));
++  const description=getSessionView(createSession({versionId:'adnd2e',methodId:'adnd2e.sp-IX'})).method.description.en;
++  expect(document.querySelector('.method-card.active .method-desc')?.textContent).toBe(description);
++  expect(localStorage.getItem('dndroll.session.v1')).toBe(saved);
++  expect(document.querySelector('.method-card button, .method-card [role="button"]')).toBeNull();
++  fireEvent.click(screen.getByRole('button',{name:'AD&D 1E'}));
++  expect((screen.getByRole('button',{name:/UA Method V/}) as HTMLButtonElement).disabled).toBe(true);
++});
+-- 
+2.51.1
+

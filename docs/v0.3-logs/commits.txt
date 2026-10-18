@@ -1,0 +1,8 @@
+ed12b11 V3-07: scope Chinese Wisdom name to AD&D 2E display only
+f645591 V3-06: expand selected method descriptions without starting sessions
+e39b2b8 V3-05: omit modulepreload polyfill from Vite builds
+683d3d4 V3-04: cache history views by immutable Session identity in Web layer
+91230c6 V3-03: pass locale explicitly to dice and dialogs; synchronize document language
+cf3815f V3-02: unify theme state colors and check AA contrast
+5d5b4b5 V3-01: separate allocation placement and recall buttons; verify keyboard events
+79f7378 Baseline: supplied DNDROLL v0.2.0(1) archive

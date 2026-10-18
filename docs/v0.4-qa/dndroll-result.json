@@ -1,0 +1,345 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": "0.4.0-2026-10-18",
+  "versionId": "dcc",
+  "methodId": "dcc.3d6-in-order",
+  "options": {},
+  "abilityMapping": [
+    {
+      "slot": "STR",
+      "id": "STR",
+      "name": {
+        "zh": "力量",
+        "en": "Strength"
+      }
+    },
+    {
+      "slot": "DEX",
+      "id": "AGI",
+      "name": {
+        "zh": "敏捷",
+        "en": "Agility"
+      }
+    },
+    {
+      "slot": "CON",
+      "id": "STA",
+      "name": {
+        "zh": "耐力",
+        "en": "Stamina"
+      }
+    },
+    {
+      "slot": "WIS",
+      "id": "PER",
+      "name": {
+        "zh": "人格",
+        "en": "Personality"
+      }
+    },
+    {
+      "slot": "INT",
+      "id": "INT",
+      "name": {
+        "zh": "智力",
+        "en": "Intelligence"
+      }
+    },
+    {
+      "slot": "CHA",
+      "id": "LCK",
+      "name": {
+        "zh": "幸运",
+        "en": "Luck"
+      }
+    }
+  ],
+  "nativeBaseScores": {
+    "STR": 12,
+    "AGI": 12,
+    "STA": 12,
+    "PER": 12,
+    "INT": 12,
+    "LCK": 12
+  },
+  "nativeScores": {
+    "STR": 12,
+    "AGI": 12,
+    "STA": 12,
+    "PER": 12,
+    "INT": 12,
+    "LCK": 12
+  },
+  "nativeModifiers": {
+    "STR": 0,
+    "AGI": 0,
+    "STA": 0,
+    "PER": 0,
+    "INT": 0,
+    "LCK": 0
+  },
+  "baseScores": {
+    "STR": 12,
+    "DEX": 12,
+    "CON": 12,
+    "WIS": 12,
+    "INT": 12,
+    "CHA": 12
+  },
+  "adjustedScores": {
+    "STR": 12,
+    "DEX": 12,
+    "CON": 12,
+    "WIS": 12,
+    "INT": 12,
+    "CHA": 12
+  },
+  "exceptionalStrength": null,
+  "selectedClass": null,
+  "source": {
+    "title": "Dungeon Crawl Classics RPG Quick Start Guide (June 2011)",
+    "location": "p.2, Ability Scores / Table 1-1",
+    "url": "https://www.goodman-games.com/downloads/DCCRPGQuickStartGuide060811.pdf",
+    "evidence": "official-web"
+  },
+  "scope": "ability-generation-only",
+  "notices": [
+    {
+      "zh": "这是属性生成结果，不是完整人物卡。",
+      "en": "This is ability generation, not a complete character sheet."
+    }
+  ],
+  "attempts": [
+    {
+      "number": 1,
+      "exceptionalStrength": null,
+      "pointGeneration": null,
+      "candidates": [
+        {
+          "id": "a1.r1",
+          "dice": [
+            {
+              "id": "a1.r1.d1",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r1.d2",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r1.d3",
+              "value": 4,
+              "kept": true
+            }
+          ],
+          "total": 12,
+          "ability": "STR",
+          "setId": null,
+          "eligible": true
+        },
+        {
+          "id": "a1.r2",
+          "dice": [
+            {
+              "id": "a1.r2.d1",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r2.d2",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r2.d3",
+              "value": 4,
+              "kept": true
+            }
+          ],
+          "total": 12,
+          "ability": "DEX",
+          "setId": null,
+          "eligible": true
+        },
+        {
+          "id": "a1.r3",
+          "dice": [
+            {
+              "id": "a1.r3.d1",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r3.d2",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r3.d3",
+              "value": 4,
+              "kept": true
+            }
+          ],
+          "total": 12,
+          "ability": "CON",
+          "setId": null,
+          "eligible": true
+        },
+        {
+          "id": "a1.r4",
+          "dice": [
+            {
+              "id": "a1.r4.d1",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r4.d2",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r4.d3",
+              "value": 4,
+              "kept": true
+            }
+          ],
+          "total": 12,
+          "ability": "WIS",
+          "setId": null,
+          "eligible": true
+        },
+        {
+          "id": "a1.r5",
+          "dice": [
+            {
+              "id": "a1.r5.d1",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r5.d2",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r5.d3",
+              "value": 4,
+              "kept": true
+            }
+          ],
+          "total": 12,
+          "ability": "INT",
+          "setId": null,
+          "eligible": true
+        },
+        {
+          "id": "a1.r6",
+          "dice": [
+            {
+              "id": "a1.r6.d1",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r6.d2",
+              "value": 4,
+              "kept": true
+            },
+            {
+              "id": "a1.r6.d3",
+              "value": 4,
+              "kept": true
+            }
+          ],
+          "total": 12,
+          "ability": "CHA",
+          "setId": null,
+          "eligible": true
+        }
+      ],
+      "looseDice": [],
+      "assignments": {
+        "STR": "a1.r1",
+        "DEX": "a1.r2",
+        "CON": "a1.r3",
+        "WIS": "a1.r4",
+        "INT": "a1.r5",
+        "CHA": "a1.r6"
+      },
+      "selectedSet": null,
+      "allocations": {},
+      "baseScores": {
+        "STR": 12,
+        "DEX": 12,
+        "CON": 12,
+        "WIS": 12,
+        "INT": 12,
+        "CHA": 12
+      },
+      "scores": {
+        "STR": 12,
+        "DEX": 12,
+        "CON": 12,
+        "WIS": 12,
+        "INT": 12,
+        "CHA": 12
+      },
+      "selectedClass": null,
+      "trades": [],
+      "poolCounts": {
+        "STR": 3,
+        "DEX": 3,
+        "CON": 3,
+        "INT": 3,
+        "WIS": 3,
+        "CHA": 3
+      },
+      "generated": true
+    }
+  ],
+  "session": {
+    "schemaVersion": 1,
+    "rulesVersion": "0.4.0-2026-10-18",
+    "request": {
+      "versionId": "dcc",
+      "methodId": "dcc.3d6-in-order",
+      "options": {}
+    },
+    "events": [
+      {
+        "action": {
+          "type": "roll"
+        },
+        "dice": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      {
+        "action": {
+          "type": "finalize"
+        },
+        "dice": []
+      }
+    ]
+  }
+}

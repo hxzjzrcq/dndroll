@@ -1,0 +1,17 @@
+Dungeon Crawl Classics（DCC） · 3d6 顺序生成
+按 STR（力量）、AGI（敏捷）、STA（耐力）、PER（人格）、INT（智力）、LCK（幸运）依次各掷 3d6，保留全部骰子，不交换结果。仅生成六属性及调整值，不是完整零级人物卡。
+STR 12 (0) / AGI 12 (0) / STA 12 (0) / PER 12 (0) / INT 12 (0) / LCK 12 (0)
+基础值: STR 12 / AGI 12 / STA 12 / PER 12 / INT 12 / LCK 12
+方法选项: {}
+生成次数 1
+a1.r1 STR: 4+4+4 = 12
+a1.r2 AGI: 4+4+4 = 12
+a1.r3 STA: 4+4+4 = 12
+a1.r4 PER: 4+4+4 = 12
+a1.r5 INT: 4+4+4 = 12
+a1.r6 LCK: 4+4+4 = 12
+结果分配: {"STR":"a1.r1","AGI":"a1.r2","STA":"a1.r3","PER":"a1.r4","INT":"a1.r5","LCK":"a1.r6"}
+Dungeon Crawl Classics RPG Quick Start Guide (June 2011), p.2, Ability Scores / Table 1-1
+https://www.goodman-games.com/downloads/DCCRPGQuickStartGuide060811.pdf
+这是属性生成结果，不是完整人物卡。
+Rules 0.4.0-2026-10-18

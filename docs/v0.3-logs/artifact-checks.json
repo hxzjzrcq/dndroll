@@ -1,0 +1,19 @@
+{
+  "DNDROLL-离线版.html": {
+    "bytes": 251357,
+    "sha256": "6297c94a0d18ba662b3e620b0a1fd9bd8971f2ee8376a701157499d61be33a0d"
+  },
+  "apps/web/dist-offline/index.html": {
+    "bytes": 251357,
+    "sha256": "6297c94a0d18ba662b3e620b0a1fd9bd8971f2ee8376a701157499d61be33a0d"
+  },
+  "Windows/DNDROLL-Windows-x64.exe": {
+    "bytes": 5863424,
+    "sha256": "f77b5b131e49420cd01a7cd946cee3cdc285a0b70b36286395a0bbd7cc3483c5"
+  },
+  "Windows/DNDROLL-Windows-x64-setup.exe": {
+    "bytes": 1671644,
+    "sha256": "c770047674d6df3be56520e1aad7077910f4619e5b40724dd5aca68343d522da"
+  },
+  "core_contract_diff": ""
+}

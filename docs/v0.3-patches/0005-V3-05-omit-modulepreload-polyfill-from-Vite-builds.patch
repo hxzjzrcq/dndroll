@@ -1,0 +1,24 @@
+From e39b2b852144748f8dfd10c7815902d24cce8cf8 Mon Sep 17 00:00:00 2001
+From: DNDROLL Maintenance <maintenance@dndroll.local>
+Date: Sun, 18 Oct 2026 04:57:13 +0300
+Subject: [PATCH 5/7] V3-05: omit modulepreload polyfill from Vite builds
+
+---
+ apps/web/vite.config.ts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/apps/web/vite.config.ts b/apps/web/vite.config.ts
+index a3806e8..01e7009 100644
+--- a/apps/web/vite.config.ts
++++ b/apps/web/vite.config.ts
+@@ -5,6 +5,7 @@ export default defineConfig({
+   plugins: [react()],
+   base: './',
+   build: {
++    modulePreload: { polyfill: false },
+     outDir: 'dist',
+     assetsInlineLimit: 4096,
+     chunkSizeWarningLimit: 900,
+-- 
+2.51.1
+

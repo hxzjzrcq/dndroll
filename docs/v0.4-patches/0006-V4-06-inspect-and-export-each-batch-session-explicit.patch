@@ -1,0 +1,248 @@
+From aef935ec6adb0d77ef231da96b4c1ec236d4a445 Mon Sep 17 00:00:00 2001
+From: DNDROLL Maintenance <maintenance@dndroll.local>
+Date: Sun, 18 Oct 2026 05:17:17 +0300
+Subject: [PATCH 6/6] V4-06: inspect and export each batch session; explicitly
+ restore one without overwriting autosave
+
+---
+ apps/web/src/App.tsx                   |  5 +-
+ apps/web/src/components/BatchPanel.tsx | 44 ++++++++++++++++--
+ apps/web/src/components/exporting.tsx  | 10 ++--
+ apps/web/src/i18n.ts                   |  5 ++
+ apps/web/src/styles.css                | 13 ++++++
+ apps/web/src/test/batch.test.tsx       | 63 ++++++++++++++++++++++++++
+ 6 files changed, 130 insertions(+), 10 deletions(-)
+
+diff --git a/apps/web/src/App.tsx b/apps/web/src/App.tsx
+index c1e04d0..ebad082 100644
+--- a/apps/web/src/App.tsx
++++ b/apps/web/src/App.tsx
+@@ -310,7 +310,10 @@ export default function App({ rng }: { rng?: Rng }) {
+             </section>
+           )}
+ 
+-          <BatchPanel request={selectedRequest} locale={locale} rng={rng} />
++          <BatchPanel request={selectedRequest} locale={locale} rng={rng} onUse={batchSession=>guarded(()=>{
++            ctl.replaceSession(batchSession);
++            setSel({versionId:batchSession.request.versionId, methodId:batchSession.request.methodId});
++          })} />
+ 
+           {session && view && (
+             <Fragment key={ctl.workspaceKey}>
+diff --git a/apps/web/src/components/BatchPanel.tsx b/apps/web/src/components/BatchPanel.tsx
+index 0d81606..6eff12d 100644
+--- a/apps/web/src/components/BatchPanel.tsx
++++ b/apps/web/src/components/BatchPanel.tsx
+@@ -1,9 +1,12 @@
+ import { useState } from 'react';
+-import { BATCH_COUNTS, generateBatch, getMethod, isBatchMethod, RuleError, type BatchEntry, type CreateRequest, type Locale, type Rng, type Text } from '@dndroll/core';
++import { BATCH_COUNTS, generateBatch, getAbilityMapping, getMethod, serializeSession, formatAbilityScore, isBatchMethod, RuleError, type BatchEntry, type CreateRequest, type Locale, type Rng, type Session, type Text } from '@dndroll/core';
++import { AbilityName, AbilityModifier, DiceRow, Modal } from './common';
++import { CompletePanel, ExportSaveButton } from './exporting';
+ import { t } from '../i18n';
+ 
+ /** Batch results live only here, independently of the single-session controller. */
+-export function BatchPanel({ request, locale, rng }: { request: CreateRequest | null; locale: Locale; rng?: Rng }) {
++export function BatchPanel({ request, locale, rng, onUse }: { onUse: (session: Session) => void; request: CreateRequest | null; locale: Locale; rng?: Rng }) {
++  const [selected, setSelected] = useState<BatchEntry | null>(null);
+   const [count, setCount] = useState(4);
+   const [entries, setEntries] = useState<BatchEntry[]>([]);
+   const [error, setError] = useState<Text | null>(null);
+@@ -12,7 +15,7 @@ export function BatchPanel({ request, locale, rng }: { request: CreateRequest |
+     if (!request || !eligible) return;
+     try {
+       const next = generateBatch(request, count, rng);
+-      setEntries(next); setError(null);
++      setEntries(next); setSelected(null); setError(null);
+     } catch (e) {
+       setError(e instanceof RuleError ? e.messages : {zh:`批量生成失败：${String(e)}`,en:`Batch generation failed: ${String(e)}`});
+     }
+@@ -32,6 +35,39 @@ export function BatchPanel({ request, locale, rng }: { request: CreateRequest |
+       <p className="panel-hint">{t('batchPresetHint', locale)}</p>
+     </>}
+     {error && <p className="issue issue-error" role="alert">{error[locale]}{entries.length>0?` ${t('batchPrevious', locale)}`:''}</p>}
+-    {entries.length>0 && <p role="status">{t('batchReady', locale, {n:entries.length})}</p>}
++    {entries.length>0 && <>
++      <p role="status">{t('batchReady', locale, {n:entries.length})}</p>
++      <p>{entries[0]!.view.version.name[locale]} · {entries[0]!.view.method.name[locale]}</p>
++      <ol className="batch-results">
++        {entries.map(entry=><li key={entry.index} className="batch-entry" aria-label={t('batchCharacter', locale, {n:entry.index})}>
++          <h3>#{entry.index}</h3>
++          <dl className="batch-scores">
++            {entry.view.version.order.map(slot=><div key={slot}>
++              <dt><AbilityName versionId={entry.view.version.id} ability={slot} locale={locale}/></dt>
++              <dd><span className="mono">{formatAbilityScore(slot, entry.view.attempt.scores[slot], entry.view.attempt.exceptionalStrength)}</span> <AbilityModifier versionId={entry.view.version.id} score={entry.view.attempt.scores[slot]} locale={locale}/></dd>
++            </div>)}
++          </dl>
++          <details className="batch-dice"><summary>{t('diceDetail', locale)}</summary>
++            <ul>{entry.view.attempt.candidates.map(candidate=><li key={candidate.id}>
++              {candidate.ability && <AbilityName versionId={entry.view.version.id} ability={candidate.ability} locale={locale}/>}
++              <DiceRow candidate={candidate} locale={locale}/><span className="mono"> = {candidate.total}</span>
++              {Object.values(entry.view.attempt.assignments).includes(candidate.id) && ' ✓'}
++            </li>)}</ul>
++          </details>
++          <div className="batch-controls">
++            <button type="button" className="btn" onClick={()=>setSelected(entry)}>{t('batchView', locale, {n:entry.index})}</button>
++            <ExportSaveButton session={entry.session} locale={locale} filename={`dndroll-${entry.view.version.id}-${entry.index}-session.json`}/>
++          </div>
++        </li>)}
++      </ol>
++    </>}
++    {selected && <Modal title={`${t('batchCharacter', locale, {n:selected.index})} · ${selected.view.version.name[locale]}`} locale={locale} onClose={()=>setSelected(null)} wide>
++      <CompletePanel session={selected.session} view={selected.view} locale={locale}/>
++      <details className="batch-audit"><summary>{t('batchSessionJson', locale)}</summary>
++        <p>{t('auditMapping', locale)}: {getAbilityMapping(selected.view.version.id).map(a=>`${a.slot} → ${a.id}`).join(' · ')}</p>
++        <pre className="session-json mono">{JSON.stringify(JSON.parse(serializeSession(selected.session)), null, 2)}</pre>
++      </details>
++      <button type="button" className="btn btn-primary" onClick={()=>{setSelected(null);onUse(selected.session);}}>{t('batchUse', locale)}</button>
++    </Modal>}
+   </section>;
+ }
+diff --git a/apps/web/src/components/exporting.tsx b/apps/web/src/components/exporting.tsx
+index d0f531e..ef45ce3 100644
+--- a/apps/web/src/components/exporting.tsx
++++ b/apps/web/src/components/exporting.tsx
+@@ -29,7 +29,7 @@ function download(filename: string, text: string, mime = 'text/plain') {
+ 
+ /* ---------- 已完成：结果与导出 ---------- */
+ 
+-export function CompletePanel({ session, view, locale, onNew }: { session: Session; view: SessionView; locale: Locale; onNew: () => void }) {
++export function CompletePanel({ session, view, locale, onNew }: { session: Session; view: SessionView; locale: Locale; onNew?: () => void }) {
+   const result = useMemo(() => exportResult(session), [session]);
+   const text = useMemo(() => formatResult(session, locale), [session, locale]);
+   const [copyState, setCopyState] = useState<'ok' | 'fail' | null>(null);
+@@ -128,9 +128,9 @@ export function CompletePanel({ session, view, locale, onNew }: { session: Sessi
+         >
+           {t('exportResultJson', locale)}
+         </button>
+-        <button type="button" className="btn btn-primary" onClick={onNew}>
++        {onNew && <button type="button" className="btn btn-primary" onClick={onNew}>
+           {t('newSession', locale)}
+-        </button>
++        </button>}
+       </div>
+       {copyState && (
+         <p className={`copy-msg${copyState === 'fail' ? ' warn' : ' ok'}`} role="status">
+@@ -149,9 +149,9 @@ export function CompletePanel({ session, view, locale, onNew }: { session: Sessi
+ 
+ /* ---------- 导出存档（进行中也可用） ---------- */
+ 
+-export function ExportSaveButton({ session, locale }: { session: Session; locale: Locale }) {
++export function ExportSaveButton({ session, locale, filename = 'dndroll-session.json' }: { session: Session; locale: Locale; filename?: string }) {
+   return (
+-    <button type="button" className="btn" onClick={() => download('dndroll-session.json', serializeSession(session), 'application/json')}>
++    <button type="button" className="btn" onClick={() => download(filename, serializeSession(session), 'application/json')}>
+       {t('exportJson', locale)}
+     </button>
+   );
+diff --git a/apps/web/src/i18n.ts b/apps/web/src/i18n.ts
+index 2dc2948..69d875c 100644
+--- a/apps/web/src/i18n.ts
++++ b/apps/web/src/i18n.ts
+@@ -3,6 +3,11 @@ import type { Ability, Locale, Text, VersionId } from '@dndroll/core';
+ 
+ /** UI 界面文案。规则说明文字一律来自 @dndroll/core，本文件只包含界面框架文本。 */
+ const dict = {
++  batchCharacter: { zh: '角色 #{n}', en: 'Character #{n}' },
++  batchView: { zh: '查看角色 #{n}', en: 'View character #{n}' },
++  batchUse: { zh: '设为当前会话', en: 'Use as current session' },
++  batchSessionJson: { zh: '完整会话 JSON（内部槽位）', en: 'Full Session JSON (internal slots)' },
++  auditMapping: { zh: '内部槽位 → 对外属性', en: 'Internal slot → native ability' },
+   batchTitle: { zh: '批量属性生成', en: 'Batch ability generation' },
+   batchCount: { zh: '批量数量', en: 'Batch count' },
+   batchGenerate: { zh: '生成批量', en: 'Generate batch' },
+diff --git a/apps/web/src/styles.css b/apps/web/src/styles.css
+index 394ebab..b4f5e37 100644
+--- a/apps/web/src/styles.css
++++ b/apps/web/src/styles.css
+@@ -1514,3 +1514,16 @@ textarea {
+ 
+ .batch-controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+ .batch-controls select { min-height: 44px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font: inherit; }
++
++.batch-results { list-style: none; padding: 0; display: grid; gap: 16px; }
++.batch-entry { border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
++.batch-entry h3 { margin: 0 0 10px; }
++.batch-scores { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin: 12px 0; }
++.batch-scores > div { background: var(--surface-2); border-radius: 6px; padding: 8px; }
++.batch-scores dd { margin: 0; font-size: 20px; }
++.batch-dice { margin: 12px 0; }
++.batch-dice ul { padding: 0; list-style: none; }
++.batch-dice li { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 8px 0; }
++.batch-audit { margin: 16px 0; }
++.session-json { max-height: 320px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; }
++@media (max-width:520px) { .batch-scores { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+diff --git a/apps/web/src/test/batch.test.tsx b/apps/web/src/test/batch.test.tsx
+index 20cb688..27b9d30 100644
+--- a/apps/web/src/test/batch.test.tsx
++++ b/apps/web/src/test/batch.test.tsx
+@@ -39,3 +39,66 @@ it('V4-05 pending decisions hide batch controls; PF1 classic requires explicit i
+  fireEvent.click(screen.getByRole('switch'));
+  expect(screen.queryByRole('button',{name:'生成批量'})).toBeNull();
+ });
++
++import { waitFor } from '@testing-library/react';
++import { deserializeSession, formatResult, getSessionView } from '@dndroll/core';
++
++it.each([1,2,8])('V4-06 UI count %i displays exactly that many independently inspectable results',(count)=>{
++ render(<StrictMode><App rng={sequenceRng(Array(count*18).fill(4))}/></StrictMode>);
++ chooseDcc();fireEvent.change(screen.getByLabelText('批量数量'),{target:{value:String(count)}});
++ fireEvent.click(screen.getByRole('button',{name:'生成批量'}));
++ const batch=screen.getByRole('region',{name:'批量属性生成'});
++ const items=within(batch).getAllByRole('listitem',{name:/^角色 #/});
++ expect(items.length).toBe(count);
++ expect([...items[0]!.querySelectorAll('.ability-abbr')].slice(0,6).map(el=>el.textContent)).toEqual(['STR','AGI','STA','PER','INT','LCK']);
++ expect(items[0]!.querySelectorAll('.ability-modifier').length).toBe(6);
++ expect(localStorage.getItem('dndroll.session.v1')).toBeNull();
++ expect(screen.queryByRole('region',{name:'最近生成'})).toBeNull();
++ fireEvent.click(within(items[0]!).getByText('骰子明细'));
++ expect(items[0]!.querySelector('details')?.open).toBe(true);
++ expect(items[0]!.querySelectorAll('svg.die').length).toBe(18);
++});
++
++it('V4-06 preview/copy/raw JSON leave autosave alone; only confirmed use restores one group',async()=>{
++ const old=applyAction(createSession({versionId:'adnd2e',methodId:'adnd2e.phb-I'}),{type:'roll'},sequenceRng(Array(18).fill(4)));
++ const oldJson=serializeSession(old);
++ localStorage.setItem('dndroll.session.v1',oldJson);
++ const first=render(<App rng={sequenceRng([2,3,4,5].flatMap(n=>Array(18).fill(n)))}/>);
++ chooseDcc();fireEvent.click(screen.getByRole('button',{name:'生成批量'}));
++ const history=screen.getByRole('region',{name:'最近生成'}).textContent;
++ fireEvent.click(screen.getByRole('button',{name:'查看角色 #2'}));
++ let dialog=screen.getByRole('dialog');
++ fireEvent.click(within(dialog).getByText('完整会话 JSON（内部槽位）'));
++ const batchJson=serializeSession(deserializeSession(dialog.querySelector('pre')!.textContent!));
++ const child=deserializeSession(batchJson);
++ expect(getSessionView(child).attempt.scores.STR).toBe(9);
++ expect(dialog.textContent).toContain('WIS → PER');
++ const descriptor=Object.getOwnPropertyDescriptor(navigator,'clipboard');
++ let copied='';
++ Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async(text:string)=>{copied=text;}}});
++ try {
++  fireEvent.click(within(dialog).getByRole('button',{name:'复制结果文本'}));
++  await waitFor(()=>expect(copied).toBe(formatResult(child,'zh')));
++  expect(copied).toContain('PER 9 (0)');expect(copied).not.toMatch(/\bCHA\b/);
++ } finally {
++  if(descriptor)Object.defineProperty(navigator,'clipboard',descriptor);else Reflect.deleteProperty(navigator,'clipboard');
++ }
++ expect(localStorage.getItem('dndroll.session.v1')).toBe(oldJson);
++ expect(screen.getByRole('region',{name:'最近生成'}).textContent).toBe(history);
++ fireEvent.click(within(dialog).getByRole('button',{name:'设为当前会话'}));
++ expect(screen.getByRole('dialog',{name:'放弃当前进度？'})).toBeTruthy();
++ fireEvent.click(screen.getByRole('button',{name:'取消'}));
++ expect(localStorage.getItem('dndroll.session.v1')).toBe(oldJson);
++ fireEvent.click(screen.getByRole('button',{name:'查看角色 #2'}));
++ fireEvent.click(within(screen.getByRole('dialog')).getByRole('button',{name:'设为当前会话'}));
++ fireEvent.click(screen.getByRole('button',{name:'放弃并继续'}));
++ expect(localStorage.getItem('dndroll.session.v1')).toBe(batchJson);
++ expect(screen.getByRole('region',{name:'最近生成'}).textContent).toContain('(2/10)');
++ expect(screen.getByText('本批量：4 组')).toBeTruthy();
++ fireEvent.click(screen.getByRole('button',{name:'English'}));
++ expect(screen.getByText('This batch: 4 groups')).toBeTruthy();
++ expect(localStorage.getItem('dndroll.session.v1')).toBe(batchJson);
++ first.unmount();render(<App/>);
++ expect(screen.queryByText('This batch: 4 groups')).toBeNull();
++ expect(localStorage.getItem('dndroll.session.v1')).toBe(batchJson);
++});
+-- 
+2.51.1
+

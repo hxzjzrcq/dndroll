@@ -1,0 +1,206 @@
+From ed12b11ca96151e07228444dfe0e1a754316248a Mon Sep 17 00:00:00 2001
+From: DNDROLL Maintenance <maintenance@dndroll.local>
+Date: Sun, 18 Oct 2026 04:58:08 +0300
+Subject: [PATCH 7/7] V3-07: scope Chinese Wisdom name to AD&D 2E display only
+
+---
+ apps/web/src/App.tsx                    |  4 +--
+ apps/web/src/components/common.tsx      |  8 ++---
+ apps/web/src/components/exporting.tsx   |  4 +--
+ apps/web/src/components/panels.tsx      | 10 +++---
+ apps/web/src/i18n.ts                    |  8 ++++-
+ apps/web/src/test/ability-name.test.tsx | 47 +++++++++++++++++++++++++
+ 6 files changed, 67 insertions(+), 14 deletions(-)
+ create mode 100644 apps/web/src/test/ability-name.test.tsx
+
+diff --git a/apps/web/src/App.tsx b/apps/web/src/App.tsx
+index 825127f..e8418a8 100644
+--- a/apps/web/src/App.tsx
++++ b/apps/web/src/App.tsx
+@@ -15,7 +15,7 @@ import {
+ import { ExceptionalPanel } from './components/ExceptionalPanel';
+ import { getHistoryView } from './historyView';
+ import { HistoryPreview } from './components/HistoryPreview';
+-import { abilityNames, t } from './i18n';
++import { getAbilityName, t } from './i18n';
+ import { loadPrefs, savePrefs, useSessionController } from './store';
+ import { ConfirmDialog, Issues, Notices, PhaseSteps } from './components/common';
+ import { AllocatePanel, AssignPanel, PairsPanel, PointBuyPanel, PoolPanel, RollPanel, SetsPanel } from './components/panels';
+@@ -426,7 +426,7 @@ function ScoreStrip({ view, locale }: { view: import('@dndroll/core').SessionVie
+         return (
+           <div key={ab} className="strip-cell">
+             <span className="ability-abbr">{ab}</span>
+-            <span className="ability-full">{abilityNames[ab][locale]}</span>
++            <span className="ability-full">{getAbilityName(view.version.id, ab, locale)}</span>
+             <span className="mono strip-score">{formatAbilityScore(ab, s, view.attempt.exceptionalStrength)}</span>
+             {b !== undefined && s !== undefined && b !== s && <span className="mono strip-base">({b})</span>}
+           </div>
+diff --git a/apps/web/src/components/common.tsx b/apps/web/src/components/common.tsx
+index 5dd3037..35ace7e 100644
+--- a/apps/web/src/components/common.tsx
++++ b/apps/web/src/components/common.tsx
+@@ -1,13 +1,13 @@
+ import { useEffect, useRef, type ReactNode } from 'react';
+-import type { Ability, Candidate, Issue, Locale, SessionView, Text } from '@dndroll/core';
+-import { abilityNames, t } from '../i18n';
++import type { Ability, Candidate, Issue, Locale, SessionView, Text, VersionId } from '@dndroll/core';
++import { getAbilityName, t } from '../i18n';
+ import { DieFace } from './DieFace';
+ 
+-export function AbilityName({ ability, locale }: { ability: Ability; locale: Locale }) {
++export function AbilityName({ versionId, ability, locale }: { versionId: VersionId; ability: Ability; locale: Locale }) {
+   return (
+     <span className="ability-name">
+       <span className="ability-abbr">{ability}</span>
+-      <span className="ability-full">{abilityNames[ability][locale]}</span>
++      <span className="ability-full">{getAbilityName(versionId, ability, locale)}</span>
+     </span>
+   );
+ }
+diff --git a/apps/web/src/components/exporting.tsx b/apps/web/src/components/exporting.tsx
+index af6e732..4af1e96 100644
+--- a/apps/web/src/components/exporting.tsx
++++ b/apps/web/src/components/exporting.tsx
+@@ -10,7 +10,7 @@ import {
+   type Session,
+   type SessionView,
+ } from '@dndroll/core';
+-import { abilityNames, t } from '../i18n';
++import { getAbilityName, t } from '../i18n';
+ import { Modal, Notices } from './common';
+ import { DieFace } from './DieFace';
+ 
+@@ -60,7 +60,7 @@ export function CompletePanel({ session, view, locale, onNew }: { session: Sessi
+           return (
+             <div key={ab} className={`final-cell${changed ? ' changed' : ''}`}>
+               <span className="ability-abbr">{ab}</span>
+-              <span className="ability-full">{abilityNames[ab][locale]}</span>
++              <span className="ability-full">{getAbilityName(view.version.id, ab, locale)}</span>
+               <span className="mono final-score">{formatAbilityScore(ab, adj, result.exceptionalStrength)}</span>
+               {changed && (
+                 <span className="mono final-base">
+diff --git a/apps/web/src/components/panels.tsx b/apps/web/src/components/panels.tsx
+index 8ed76e6..4d28878 100644
+--- a/apps/web/src/components/panels.tsx
++++ b/apps/web/src/components/panels.tsx
+@@ -94,7 +94,7 @@ export function AssignPanel({ view, locale, run }: PanelProps) {
+             const c = id ? byId.get(id) : undefined;
+             return (
+               <button key={ab} type="button" className={`ability-slot${c ? ' filled' : ''}`} onClick={() => placeOn(ab)}>
+-                <AbilityName ability={ab} locale={locale} />
++                <AbilityName versionId={view.version.id} ability={ab} locale={locale} />
+                 {c ? <CandidateFace candidate={c} locale={locale} /> : <span className="slot-empty">{t('unassigned', locale)}</span>}
+               </button>
+             );
+@@ -119,7 +119,7 @@ export function PairsPanel({ view, locale, run }: PanelProps) {
+           const chosen = assignments[ab];
+           return (
+             <div key={ab} className="pair-row">
+-              <AbilityName ability={ab} locale={locale} />
++              <AbilityName versionId={view.version.id} ability={ab} locale={locale} />
+               <div className="pair-options">
+                 {pair.map((c) => (
+                   <button
+@@ -237,7 +237,7 @@ export function AllocatePanel({ view, locale, run }: PanelProps) {
+             <div key={ab} className={`allocate-cell${picked ? ' targetable' : ''}`}>
+               <button type="button" className="allocate-cell-head allocate-place" disabled={!picked}
+                 aria-label={`${ab} · ${t('placeDie', locale)}`} onClick={() => place(ab)}>
+-                <AbilityName ability={ab} locale={locale} />
++                <AbilityName versionId={view.version.id} ability={ab} locale={locale} />
+                 <span className={`mono allocate-total${score >= 18 ? ' at-cap' : ''}`}>{score}</span>
+               </button>
+               <div className="allocate-cell-dice">
+@@ -281,7 +281,7 @@ export function PoolPanel({ view, locale, run }: PanelProps) {
+       <div className="pool-grid">
+         {view.version.order.map((ab) => (
+           <div key={ab} className="pool-row">
+-            <AbilityName ability={ab} locale={locale} />
++            <AbilityName versionId={view.version.id} ability={ab} locale={locale} />
+             <div className="stepper">
+               <button type="button" className="btn btn-step" disabled={draft[ab] <= 3} onClick={() => bump(ab, -1)} aria-label={`${ab} -1`}>
+                 −
+@@ -348,7 +348,7 @@ export function PointBuyPanel({ view, locale, run }: PanelProps) {
+           const score = view.attempt.scores[ab] ?? view.method.base;
+           return (
+             <div key={ab} className="buy-row">
+-              <AbilityName ability={ab} locale={locale} />
++              <AbilityName versionId={view.version.id} ability={ab} locale={locale} />
+               <div className="stepper">
+                 <button type="button" className="btn btn-step" disabled={score <= min} onClick={() => run({ type: 'setScore', ability: ab, score: score - 1 })} aria-label={`${ab} -1`}>
+                   −
+diff --git a/apps/web/src/i18n.ts b/apps/web/src/i18n.ts
+index 09a12da..6506f66 100644
+--- a/apps/web/src/i18n.ts
++++ b/apps/web/src/i18n.ts
+@@ -1,4 +1,4 @@
+-import type { Ability, Locale, Text } from '@dndroll/core';
++import type { Ability, Locale, Text, VersionId } from '@dndroll/core';
+ 
+ /** UI 界面文案。规则说明文字一律来自 @dndroll/core，本文件只包含界面框架文本。 */
+ const dict = {
+@@ -153,3 +153,9 @@ export const abilityNames: Record<Ability, Text> = {
+   WIS: { zh: '感知', en: 'Wisdom' },
+   CHA: { zh: '魅力', en: 'Charisma' },
+ };
++
++/** Display-only names scoped by edition; IDs, events and serialized data stay unchanged. */
++export function getAbilityName(versionId: VersionId, ability: Ability, locale: Locale): string {
++  if (versionId === 'adnd2e' && ability === 'WIS' && locale === 'zh') return '灵知';
++  return abilityNames[ability][locale];
++}
+diff --git a/apps/web/src/test/ability-name.test.tsx b/apps/web/src/test/ability-name.test.tsx
+new file mode 100644
+index 0000000..51702c6
+--- /dev/null
++++ b/apps/web/src/test/ability-name.test.tsx
+@@ -0,0 +1,47 @@
++import { fireEvent, render, screen, within } from '@testing-library/react';
++import { applyAction, createSession, deserializeSession, formatResult, listVersions, sequenceRng, serializeSession, type VersionId } from '@dndroll/core';
++import { getAbilityName } from '../i18n';
++import { AbilityName } from '../components/common';
++import App from '../App';
++
++it('V3-07: only 2E Chinese Wisdom changes; every other edition and English remain scoped',()=>{
++  for(const version of listVersions()) {
++    expect(getAbilityName(version.id,'WIS','zh')).toBe(version.id==='adnd2e'?'灵知':'感知');
++    expect(getAbilityName(version.id,'WIS','en')).toBe('Wisdom');
++    expect(getAbilityName(version.id,'STR','zh')).toBe('力量');
++  }
++  const {rerender}=render(<AbilityName versionId="adnd2e" ability="WIS" locale="zh"/>);
++  expect(screen.getByText('WIS')).toBeTruthy();expect(screen.getByText('灵知')).toBeTruthy();
++  rerender(<AbilityName versionId="adnd1e" ability="WIS" locale="zh"/>);
++  expect(screen.getByText('感知')).toBeTruthy();
++});
++
++it.each([['adnd2e','adnd2e.phb-I','灵知'],['adnd1e','adnd1e.dmg-I','感知']] as const)('V3-07: %s scores, history, completed result and copied TXT keep the right scope', (version,method,label)=>{
++  let s=applyAction(createSession({versionId:version as VersionId,methodId:method}),{type:'roll'},sequenceRng(Array(24).fill(4)));
++  if(version==='adnd1e') s=applyAction(s,{type:'assign',assignments:Object.fromEntries(['STR','INT','WIS','DEX','CON','CHA'].map((ab,i)=>[ab,`a1.r${i+1}`]))});
++  localStorage.setItem('dndroll.session.v1',serializeSession(s));
++  render(<App/>);
++  expect(screen.getAllByText(label).length).toBeGreaterThan(0);
++  const before=localStorage.getItem('dndroll.session.v1');
++  fireEvent.click(screen.getByRole('button',{name:'English'}));
++  expect(screen.getAllByText('Wisdom').length).toBeGreaterThan(0);
++  expect(localStorage.getItem('dndroll.session.v1')).toBe(before);
++  fireEvent.click(screen.getByRole('button',{name:'中文'}));
++  fireEvent.click(screen.getByRole('button',{name:'确认完成并锁定'}));
++  expect(document.querySelector('.final-grid')?.textContent).toContain(label);
++  const saved=localStorage.getItem('dndroll.session.v1')!;
++  const restored=deserializeSession(saved);
++  expect(serializeSession(restored)).toBe(saved);
++  // Existing TXT/copy/history use stable abbreviations, not full translated names.
++  expect(formatResult(restored,'zh')).toContain('WIS 12');
++  expect(formatResult(restored,'zh')).not.toMatch(/感知|灵知/);
++  expect(within(screen.getByRole('region',{name:'最近生成'})).getByText(/WIS 12/)).toBeTruthy();
++});
++
++it('V3-07: method VI uses the scoped name without altering the Session',()=>{
++  const s=applyAction(createSession({versionId:'adnd2e',methodId:'adnd2e.phb-VI'}),{type:'roll'},sequenceRng([6,5,4,3,2,1,1]));
++  localStorage.setItem('dndroll.session.v1',serializeSession(s));
++  render(<App/>);
++  expect(screen.getByRole('button',{name:/^WIS/}).textContent).toContain('灵知');
++  expect(localStorage.getItem('dndroll.session.v1')).toBe(serializeSession(s));
++});
+-- 
+2.51.1
+
