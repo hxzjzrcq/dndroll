@@ -94,4 +94,4 @@ npm run build:web      # 常规与离线单文件构建
 - [CONTRIBUTING](CONTRIBUTING.md)：开发验证和文档维护流程。
 - [GitHub 建仓说明](docs/github.md)：解压后可直接以项目根目录建立仓库。
 
-本次文档整理只更新完整源码 ZIP，不改变功能版本、HTML 或 EXE。源码包不含 .git 提交历史，也未连接远端；保留的历史补丁已经应用，不要重复应用。根目录旧版 Core tgz 仅为归档，当前包位于 packages/core。
+源码包不含 .git 提交历史；保留的历史补丁已经应用，不要重复应用。根目录旧版 Core tgz 仅为归档，当前包位于 packages/core。
